@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="libs/jsoup-1.9.2.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/commons-codec-1.7.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/commons-lang3-3.3.2.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/ez-vcard-0.10.4.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/fastjson-1.2.8.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/guava-17.0.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/vinnie-2.0.2.jar"/>
+	<classpathentry kind="lib" path="libs/pinyin4j-2.5.0-sources.jar"/>
+	<classpathentry kind="lib" path="libs/pinyin4j-2.5.0.jar"/>
+	<classpathentry kind="lib" path="libs/zip4j_1.3.2.jar"/>
+	<classpathentry kind="lib" path="libs/org.apache.log4j_1.2.15.v201012070815.jar"/>
+	<classpathentry kind="lib" path="tomcatlib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="tomcatlib/ecj-4.4.jar"/>
+	<classpathentry kind="lib" path="tomcatlib/jasper-el.jar"/>
+	<classpathentry kind="lib" path="tomcatlib/jasper.jar"/>
+	<classpathentry kind="lib" path="tomcatlib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="tomcatlib/tomcat-embed-core-8.5.29-sources.jar"/>
+	<classpathentry kind="lib" path="tomcatlib/tomcat-embed-core-8.5.29.jar"/>
+	<classpathentry kind="lib" path="libs/javax.servlet-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/tomcat-embed-websocket-8.5.29.jar"/>
+	<classpathentry kind="lib" path="libs/tomcat-juli.jar"/>
+	<classpathentry kind="lib" path="libs/log4j-to-slf4j-2.10.0.jar"/>
+	<classpathentry kind="lib" path="libs/slf4j-api-1.7.5.jar"/>
+	<classpathentry kind="lib" path="libs/slf4j-log4j12-1.7.5.jar"/>
+	<classpathentry kind="lib" path="libs/ganymed-ssh2-build210.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
