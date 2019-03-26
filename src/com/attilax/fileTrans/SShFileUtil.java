@@ -57,7 +57,7 @@ public class SShFileUtil {
 				.setUsername("root").setPassword("dKttdev.321");
 
 		 
-			c.upLoadFile("C:\\Users\\zhoufeiyue\\Desktop\\api.war");
+			c.upLoadFile("H:\\gitCode\\tt-api\\com-tt-yxt\\target\\tt-yxt-0.0.1-SNAPSHOT.war");
 		 System.out.println("--f");
 
 	}

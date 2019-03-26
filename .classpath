@@ -30,5 +30,7 @@
 	<classpathentry kind="lib" path="libs/slf4j-api-1.7.5.jar"/>
 	<classpathentry kind="lib" path="libs/slf4j-log4j12-1.7.5.jar"/>
 	<classpathentry kind="lib" path="libs/ganymed-ssh2-build210.jar"/>
+	<classpathentry kind="lib" path="libs/javacsv-2.1.jar"/>
+	<classpathentry kind="lib" path="libs/freemarker-2.3.19.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
