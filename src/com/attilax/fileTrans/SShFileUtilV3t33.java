@@ -167,7 +167,7 @@ public class SShFileUtilV3t33 {
 		}
 	}
 
-	private void upload(Connection connection, String localFIle, String scppath)
+	public void upload(Connection connection, String localFIle, String scppath)
 			throws ConnEx, AuthEx, createSCPClientEx, uploadFileEx, IOException {
 
 		this.setScpPath(scppath);
@@ -395,5 +395,12 @@ try {
 		}
 
 		return con;
+	}
+
+	public SShFileUtilV3t33 setcfg(String string) {
+		String[] a=string.split(":");
+		this.setScpAddress(a[0]).setScpPort("22").setUsername("root")
+		.setPassword(a[3]);
+		return this;
 	}
 }
