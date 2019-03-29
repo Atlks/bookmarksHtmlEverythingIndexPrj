@@ -32,13 +32,5 @@
 	<classpathentry kind="lib" path="libs/ganymed-ssh2-build210.jar"/>
 	<classpathentry kind="lib" path="libs/javacsv-2.1.jar"/>
 	<classpathentry kind="lib" path="libs/freemarker-2.3.19.jar"/>
-	<classpathentry kind="lib" path="libHttpclient/httpclient-4.5.5.jar"/>
-	<classpathentry kind="lib" path="libHttpclient/httpclient-cache-4.5.jar"/>
-	<classpathentry kind="lib" path="libHttpclient/httpclient-win-4.5.jar"/>
-	<classpathentry kind="lib" path="libHttpclient/httpcore-4.4.9.jar"/>
-	<classpathentry kind="lib" path="libHttpclient/httpcore-nio-4.4.5.jar"/>
-	<classpathentry kind="lib" path="libHttpclient/commons-logging-1.1.jar"/>
-	<classpathentry kind="lib" path="libHttpclient/commons-logging-4.0.6.jar"/>
-	<classpathentry kind="lib" path="libHttpclient/commons-logging-api-1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
