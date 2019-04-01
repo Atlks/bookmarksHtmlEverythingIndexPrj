@@ -1,5 +1,7 @@
+package aOPtool;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -18,9 +20,9 @@ import com.google.common.base.Joiner;
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 
-public class preSvr_adminPubScrpt2publishtool2 {
+public class preSvr_apiPubScrpt2publishtool {
 
-	final static Logger logger = Logger.getLogger(preSvr_adminPubScrpt2publishtool2.class);
+	final static Logger logger = Logger.getLogger(preSvr_apiPubScrpt2publishtool.class);
 
 	public static void main(String[] args) throws IOException, ConnEx, AuthEx, createSCPClientEx, uploadFileEx {
 
@@ -29,7 +31,7 @@ public class preSvr_adminPubScrpt2publishtool2 {
 				
 	//	http://101.132.148.11:9000/admin 
   
-		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg("101.132.148.11:22:root:tA48.k");
+		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg("101.132.148.11:22:root:pdm#1921");
 				
 			
 
@@ -48,27 +50,28 @@ public class preSvr_adminPubScrpt2publishtool2 {
 
 	private static void uploadWar(SShFileUtilV3t33 c, Connection connection) throws IOException, ConnEx, AuthEx, createSCPClientEx, uploadFileEx {
 		// bek
-		String cmd_bek = "mv  /tt/www/admin-tomcat9/webapps/admin.war    /tt/www/admin-tomcat9/backup/admin.war.27 ";
+		String cmd_bek = "mv  /tt/www/api-tomcat9/webapps/api.war    /tt/www/api-tomcat9/backup/api.war."+new SimpleDateFormat("yyyy-MM-ddHHmmss").format(new java.util.Date());
 		logger.info(cmd_bek);
 		List<String> result2 =SShFileUtilV3t33. exec(cmd_bek, connection);
 		System.out.println(Joiner.on("\r\n").join(result2));
 
 		// upload
-		String scppath = "/tt/www/admin-tomcat9/webapps";
-		String localFIle = "H:\\gitCode\\tt-api\\com-tt-admin\\target\\admin.war";
+	
+		String localFIle = "G:\\0ttapi\\tt-api\\com-tt-yxt\\target\\api.war";
+		String scppath = "/tt/www/api-tomcat9/webapps/";
 		logger.info("upload file:" + localFIle + " " + scppath);
 		c.scpClient = c.getScpclient(connection);
 		  c.upload(connection, localFIle, scppath);
 
-		// rename  dep
-		String cmd = " mv  /tt/www/admin-tomcat9/webapps/tt-yxt-0.0.1-SNAPSHOT.war  /tt/www/admin-tomcat9/webapps/admin.war ";
-		logger.info(cmd);
-		List<String> result =SShFileUtilV3t33. exec(cmd, connection);
-		System.out.println(Joiner.on("\r\n").join(result));
+		// rename
+//		String cmd = " mv  /tt/www/api-tomcat9/webapps/tt-yxt-0.0.1-SNAPSHOT.war  /tt/www/api-tomcat9/webapps/api.war ";
+//		logger.info(cmd);
+//		List<String> result =SShFileUtilV3t33. exec(cmd, connection);
+//		System.out.println(Joiner.on("\r\n").join(result));
 	}
 
 	private static void rebootTomcat(Connection connection) throws IOException {
-		String kewword_forkillpid = "admin-tomcat9";
+		String kewword_forkillpid = "api-tomcat9";
 		try {
 			killTomcat(connection, kewword_forkillpid);
 		} catch (Exception e) {
@@ -80,7 +83,7 @@ public class preSvr_adminPubScrpt2publishtool2 {
 		
 		///usr/local/jenkins-tomcat8   /usr/local/jenkins-tomcat8/bin/startup.sh 
 		String JAVA_HOME="export JAVA_HOME=/tt/www/jdk1.8.0_191"; 
-		String cmd_startTomcat=JAVA_HOME+";"+" /tt/www/admin-tomcat9/bin/startup.sh   ";
+		String cmd_startTomcat=JAVA_HOME+";"+" /tt/www/api-tomcat9/bin/startup.sh   ";
 		logger.info(cmd_startTomcat);
 		System.out.println(SShFileUtilV3t33.exec(cmd_startTomcat, connection.openSession(),3));
 		
