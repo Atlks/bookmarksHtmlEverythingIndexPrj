@@ -24,7 +24,7 @@ import ch.ethz.ssh2.Session;
 public class prod_apiPubScrpt2publishtool {
 
 	final static Logger logger = Logger.getLogger(prod_apiPubScrpt2publishtool.class);
-
+	static	String kewword_forkillpid = "api-tomcat9";
 	public static void main(String[] args) throws IOException, ConnEx, AuthEx, createSCPClientEx, uploadFileEx {
 
 		// http://101.132.148.11:9000/admin
@@ -35,11 +35,11 @@ public class prod_apiPubScrpt2publishtool {
 		logger.info(" conned ok");
 		// Session session = connection.openSession();
 
-		  uploadWar(c, connection);
+	//	  uploadWar(c, connection);
 
-	//	  rebootTomcat(connection);
+	 	  rebootTomcat(connection);
 
-		String kewword_forkillpid = "api-tomcat9";
+		
 		showGrepProcessList(connection, kewword_forkillpid);
 
 		String cmd3 = "ps -ef|grep  tomcat";
@@ -61,21 +61,21 @@ public class prod_apiPubScrpt2publishtool {
 
 		// upload
 
-		String localFIle = "G:\\0ttapi\\tt-api\\com-tt-yxt\\target\\api.war";
+		String localFIle = "G:\\0ttapi\\tt-api\\com-tt-yxt\\target\\tt-yxt-0.0.1-SNAPSHOT.war";
 		String scppath = "/tt/www/api-tomcat9/webapps/";
 		logger.info("upload file:" + localFIle + " " + scppath);
 		c.scpClient = c.getScpclient(connection);
 		c.upload(connection, localFIle, scppath);
 
 		// rename
-//		String cmd = " mv  /tt/www/api-tomcat9/webapps/tt-yxt-0.0.1-SNAPSHOT.war  /tt/www/api-tomcat9/webapps/api.war ";
-//		logger.info(cmd);
-//		List<String> result =SShFileUtilV3t33. exec(cmd, connection);
-//		System.out.println(Joiner.on("\r\n").join(result));
+		String cmd = " mv  /tt/www/api-tomcat9/webapps/tt-yxt-0.0.1-SNAPSHOT.war  /tt/www/api-tomcat9/webapps/api.war ";
+		logger.info(cmd);
+		List<String> result =SShFileUtilV3t33. exec(cmd, connection);
+		System.out.println(Joiner.on("\r\n").join(result));
 	}
 
 	private static void rebootTomcat(Connection connection) throws IOException {
-		String kewword_forkillpid = "api-tomcat9";
+		//String kewword_forkillpid = "api-tomcat9";
 		try {
 			killTomcat(connection, kewword_forkillpid);
 		} catch (Exception e) {

@@ -49,16 +49,7 @@ public class preSvr_adminPubScrpt2publishtool2 {
 		
 		
 		//maven
-String mvnString="Z:\\soft\\apache-maven-3.5.4-bin\\apache-maven-3.5.4\\bin\\mvn.cmd";
-		String cmdString = mvnString+"    -f G:\\0ttapi\\tt-api\\com-tt-admin\\pom_prod.xml install";
-		System.out.println(cmdString);
-		Process process = Runtime.getRuntime().exec(cmdString);
-		InputStream inputStream = process.getInputStream();
-		// 消费掉IO流，防止程序被阻塞卡死
-		printStream(inputStream,"stdstream:>");
-
-		// 消费掉IO流，防止程序被阻塞卡死
-		printStream(process.getErrorStream(),"errstream:>");
+//mavenExec();
 			 
 		
 		
@@ -81,10 +72,23 @@ String mvnString="Z:\\soft\\apache-maven-3.5.4-bin\\apache-maven-3.5.4\\bin\\mvn
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-//		 rebootTomcat(connection);
+ 		 rebootTomcat(connection);
 
 		System.out.println("--f");
 
+	}
+
+	private static void mavenExec() throws IOException {
+		String mvnString="Z:\\soft\\apache-maven-3.5.4-bin\\apache-maven-3.5.4\\bin\\mvn.cmd";
+				String cmdString = mvnString+"    -f G:\\0ttapi\\tt-api\\com-tt-admin\\pom_prod.xml install";
+				System.out.println(cmdString);
+				Process process = Runtime.getRuntime().exec(cmdString);
+				InputStream inputStream = process.getInputStream();
+				// 消费掉IO流，防止程序被阻塞卡死
+				printStream(inputStream,"stdstream:>");
+		
+				// 消费掉IO流，防止程序被阻塞卡死
+				printStream(process.getErrorStream(),"errstream:>");
 	}
 
 	private static void printStream(InputStream inputStream, String outtag) {
