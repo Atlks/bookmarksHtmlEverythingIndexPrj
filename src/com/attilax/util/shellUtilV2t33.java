@@ -52,6 +52,28 @@ public class shellUtilV2t33 {
 		Map map = grepBykewword(tab, kewword);
 		return Integer.parseInt(map.get("index"+pidIndex).toString().trim());
 	}
+	
+	
+	public static List getPids(List<Map> tab, String kewword, int pidIndex) {
+		List rztList=Lists.newArrayList();
+	List<Map> maps = grepBykewwordList(tab, kewword);
+	for (Map map : maps) {
+		rztList.add(Integer.parseInt(map.get("index"+pidIndex).toString().trim()));
+	}
+	 
+		return rztList;
+	}
+
+	private static List<Map> grepBykewwordList(List<Map> tab, String kewword) {
+		 List<Map> list=Lists.newArrayList();
+		for (Map map : tab) {
+			String string = JSON.toJSONString(map);
+			if (string.contains(kewword) && !string.contains("catalina.out"))
+				list.add(map);
+		}
+		return list;
+	}
+
 
 	private static Map grepBykewword(List<Map> tab, String kewword) {
 		for (Map map : tab) {

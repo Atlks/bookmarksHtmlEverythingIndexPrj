@@ -21,28 +21,23 @@ import com.google.common.base.Joiner;
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 
-public class preSvr_apiPubScrpt2publishtool {
+public class prod_apiPubScrpt2publishtool {
 
-	final static Logger logger = Logger.getLogger(preSvr_apiPubScrpt2publishtool.class);
+	final static Logger logger = Logger.getLogger(prod_apiPubScrpt2publishtool.class);
 
 	public static void main(String[] args) throws IOException, ConnEx, AuthEx, createSCPClientEx, uploadFileEx {
 
 		// http://101.132.148.11:9000/admin
-
-		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg("101.132.148.11:22:root:pdm#1921");
+//   用户名：root 密码：
+		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg("139.224.11.93:22:root:tA48.k");
 
 		Connection connection = c.conn();
 		logger.info(" conned ok");
 		// Session session = connection.openSession();
 
-		// uploadWar(c, connection);
-		 try {
-				Thread.sleep(3000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		// rebootTomcat(connection);
+		  uploadWar(c, connection);
+
+	//	  rebootTomcat(connection);
 
 		String kewword_forkillpid = "api-tomcat9";
 		showGrepProcessList(connection, kewword_forkillpid);

@@ -37,17 +37,22 @@ public class MenuSeviceImpl  {
      * @return
      * @throws AuthenticationException 
      */
-    public JSONObject getMenu(String accessToken)   {
+    public JSONObject getMenu(String accessToken) throws AuthenticationException   {
 
         // 拼装创建菜单的url
         String url = menu_get_url.replace("ACCESS_TOKEN", accessToken);
         // 调用接口查询菜单
-        JSONObject jsonObject = HttpUtil.httpRequest(url, "GET", null);
-        
-        if(jsonObject.getInteger("errcode")!=null)
-        	throw new RuntimeException(jsonObject.toJSONString());
+        JSONObject menu = HttpUtil.httpRequest(url, "GET", null);
+    	if(menu.get("errcode")!=null && menu.getInteger("errcode")==40001)
+			throw  new AuthenticationException(menu.toJSONString());
+		
+		if(menu.get("errcode")!=null && menu.getInteger("errcode")==42001)  //token outtime
+			throw  new AuthenticationException(menu.toJSONString());
+		
+		if(menu.get("errcode")!=null)
+			throw new RuntimeException(menu.toJSONString());
 
-        return jsonObject;
+        return menu;
     }
 
     /**
@@ -55,7 +60,7 @@ public class MenuSeviceImpl  {
      * @param accessToken 有效的access_token
      * @return 0表示成功，其他值表示失败
      */
-    public int createMenu(String menu, String accessToken) {
+    public JSONObject createMenu(String menu, String accessToken) {
         int result = 0;
 
         // 拼装创建菜单的url
@@ -72,7 +77,7 @@ public class MenuSeviceImpl  {
            
               throw new RuntimeException(jsonObject.toJSONString());
         }
-        return result;
+        return jsonObject;
     }
 
 //    public int createMenu(Map<String, Object> menu, String accessToken) {

@@ -2,6 +2,7 @@ package com.attilax.wechatToto;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 
 import org.apache.commons.io.FileUtils;
@@ -10,29 +11,24 @@ import org.apache.http.auth.AuthenticationException;
 
 import com.alibaba.fastjson.JSONObject;
 
-//pre script totoiuwen 
-public class wechatMenuScript {
+//pro script    totoYunsyeto
+public class ProdwechatMenuScript {
 
 //	private static final 
-	//
+	//  java -cp .:/sqlbek/classes:/sqlbek/miniPrjjars/*:/sqlbek/libHttpclient/*  com.attilax.wechatToto.ProdwechatMenuScript 
 
 	public static void main(String[] args) throws Exception {
-		  CommandLineParser parser = new DefaultParser();
-	        CommandLine line = null;
-	        // 解析命令行参数
-	        try {
-	            line = parser.parse(opts, args);
-	 
+
 		String token;
 
-		String tokenStoreFile = "g:\\0db\\tmpTable\\token.txt";
+		String tokenStoreFile = "/0db_tmpTable/prod_token.txt";
 		try {
 			token = WechatUtil.getTokenFromFile(tokenStoreFile);
 			WechatUtil.tokenIsOk(token);
 		} catch (FileNotFoundException | AuthenticationException e) {
 
-			WXAuthUtil.APPID = "wx8ab1db22113b030d" + "";
-			WXAuthUtil.APPSECRET = "21189c9ca7daefacc8d2a4177eb90fc6";
+			WXAuthUtil.APPID = "wx923a8fe47e79389e" + "";
+			WXAuthUtil.APPSECRET = "cb01a20b5e95caab1815e8f1aff358a3";
 
 			JSONObject jsonObject = WXAuthUtil.getAccessToken();
 			System.out.println(jsonObject);
@@ -50,10 +46,13 @@ public class wechatMenuScript {
 		// {"access_token":"20_NzEqY5k1bj64tguXl3oZb-QkVy4WcGowYf7R8ERXcu3raN2lVYv_xz_njX_ecp4T81VBceqPr0feNxE5rfs3xb_pe_loPik4AXLv30dQlSediaLj6_bq9y5ak4Rg3_59mtmikF15badSVCozSYPiAJANTK","expires_in":7200}
 		JSONObject MENU = new MenuSeviceImpl().getMenu(token);
 	//	FileUtils.write(new File("g:\\0db\\tmpTable\\preTotoIuwen_menu.json"), MENU.toJSONString(MENU, true));
-		System.out.println(MENU);
-	//	String tString=FileUtils.readFileToString(new File("g:\\0db\\tmpTable\\preTotoIuwen_menu.json"));
-	//	JSONObject mENU_fromFileJsonObject=JSONObject.parseObject(tString);
-	//	System.out.println(tString);
+		System.out.println(MENU);		
+		String pathname = "/0db_tmpTable/prodTotoYonsyeteo_menu{0}.json";
+		pathname = MessageFormat.format(pathname, new SimpleDateFormat("yyyy-MM-dd.HHmmss").format(new java.util.Date()));
+		FileUtils.write(  new File(pathname),MENU.toJSONString(MENU, true));
+//		String tString=FileUtils.readFileToString(new File("/0db_tmpTable/prodTotoIuwen_menu.json"));
+//		JSONObject mENU_fromFileJsonObject=JSONObject.parseObject(tString);
+//		System.out.println(tString+);
 	//	System.out.println( new MenuSeviceImpl().createMenu(mENU_fromFileJsonObject.getString("menu").toString(), token));
 		
 		

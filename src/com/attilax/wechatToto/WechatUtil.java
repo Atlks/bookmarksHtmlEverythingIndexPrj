@@ -12,7 +12,9 @@ public class WechatUtil {
 
 	public static boolean tokenIsOk(String token) throws AuthenticationException {
 		System.out.println("WechatUtil.tokenIsOk");
-		System.out.println( new	MenuSeviceImpl().getMenu(token));
+		JSONObject menu = new	MenuSeviceImpl().getMenu(token);
+	
+		System.out.println( menu);
 		return true;
 	}
 
