@@ -344,7 +344,7 @@ try {
 	private void upload(String fileName, SCPClient scpClient) throws IOException {
 		// 0755是指权限编号
 
-		scpClient.put(fileName, scpPath, "0755");
+		scpClient.put(fileName, scpPath, "0777");
 
 //		if (logger.isDebugEnabled()) {
 //			logger.debug("关闭连接");

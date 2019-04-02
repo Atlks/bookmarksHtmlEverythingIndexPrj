@@ -33,25 +33,22 @@ public class sqlBekScrpt {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-			
 
 		while (true) {
 			System.out.println("start  wait to in sleep 2hr");
 			Thread.sleep(3600 * 1000 * 2);
-try {
-	bek();
-} catch (Exception e) {
-	e.printStackTrace();
-}
+			try {
+				bek();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-try {
-	bekLinux();
-} catch (Exception e) {
-	e.printStackTrace();
-}
-	
-			
-			
+			try {
+				bekLinux();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 			System.out.println("--slp");
 		}
 
