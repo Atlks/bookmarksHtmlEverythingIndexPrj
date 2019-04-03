@@ -57,8 +57,16 @@ public class preSvr_adminPubScrpt2publishtool2 {
 //		List<String> list = IOUtils.readLines(inputStream, "utf8");
 //		String retstr = Joiner.on("\r\n").join(list);
 //		System.out.println(retstr);
-
-		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg("101.132.148.11:22:root:pdm#1921");
+		String host = "101.132.148.11:22:root:pdm#1921";
+		System.out.println("****************"+host);
+		 try {
+				Thread.sleep(6000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg(host);
 
 		Connection connection = c.conn();
 		logger.info(" conned ok");

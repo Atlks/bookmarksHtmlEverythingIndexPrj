@@ -2,6 +2,7 @@ package aOPtool;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
@@ -29,20 +30,32 @@ public class preSvr_apiPubScrpt2publishtool {
 
 		// http://101.132.148.11:9000/admin
 
-		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg("101.132.148.11:22:root:pdm#1921");
+		String string = "root:pdm#1921@101.132.148.11:22";
+		
+		
+		
+		 
+		System.out.println("****************"+string);
+		 try {
+				Thread.sleep(6000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg(string);
 
 		Connection connection = c.conn();
 		logger.info(" conned ok");
 		// Session session = connection.openSession();
 
-		// uploadWar(c, connection);
+		  uploadWar(c, connection);
 		 try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		// rebootTomcat(connection);
+		  rebootTomcat(connection);
 
 		String kewword_forkillpid = "api-tomcat9";
 		showGrepProcessList(connection, kewword_forkillpid);
@@ -66,17 +79,17 @@ public class preSvr_apiPubScrpt2publishtool {
 
 		// upload
 
-		String localFIle = "G:\\0ttapi\\tt-api\\com-tt-yxt\\target\\api.war";
+		String localFIle = "G:\\0ttapi\\tt-api\\com-tt-yxt\\target\\tt-yxt-0.0.1-SNAPSHOT.war";
 		String scppath = "/tt/www/api-tomcat9/webapps/";
 		logger.info("upload file:" + localFIle + " " + scppath);
 		c.scpClient = c.getScpclient(connection);
 		c.upload(connection, localFIle, scppath);
 
 		// rename
-//		String cmd = " mv  /tt/www/api-tomcat9/webapps/tt-yxt-0.0.1-SNAPSHOT.war  /tt/www/api-tomcat9/webapps/api.war ";
-//		logger.info(cmd);
-//		List<String> result =SShFileUtilV3t33. exec(cmd, connection);
-//		System.out.println(Joiner.on("\r\n").join(result));
+		String cmd = " mv  /tt/www/api-tomcat9/webapps/tt-yxt-0.0.1-SNAPSHOT.war  /tt/www/api-tomcat9/webapps/api.war ";
+		logger.info(cmd);
+		List<String> result =SShFileUtilV3t33. exec(cmd, connection);
+		System.out.println(Joiner.on("\r\n").join(result));
 	}
 
 	private static void rebootTomcat(Connection connection) throws IOException {

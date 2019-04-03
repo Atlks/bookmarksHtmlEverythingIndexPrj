@@ -45,6 +45,65 @@
 	<classpathentry kind="lib" path="libHttpclient/commons-logging-4.0.6.jar"/>
 	<classpathentry kind="lib" path="libHttpclient/commons-logging-api-1.1.jar"/>
 	<classpathentry kind="lib" path="libs/commons-cli-1.4.jar"/>
+	<classpathentry kind="lib" path="libs/gradle-base-services-groovy-2.2.1.jar"/>
+	<classpathentry kind="lib" path="libs/groovy-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/ant-1.9.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/ant-antlr-1.9.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/ant-junit-1.9.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/ant-launcher-1.9.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/apiguardian-api-1.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/bsf-2.4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/commons-cli-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/gpars-1.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-ant-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-bsf-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-cli-commons-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-cli-picocli-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-console-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-datetime-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-dateutil-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-docgenerator-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-groovydoc-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-groovysh-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-jaxb-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-jmx-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-json-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-json-direct-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-jsr223-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-macro-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-nio-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-servlet-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-sql-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-swing-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-templates-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-test-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-test-junit5-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-testng-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/groovy-xml-2.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/ivy-2.4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/jansi-1.17.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/javax.servlet-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/jcommander-1.72.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/jline-2.14.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/jsp-api-2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/jsr166y-1.7.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/junit-jupiter-api-5.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/junit-jupiter-engine-5.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/junit-platform-commons-1.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/junit-platform-engine-1.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/junit-platform-launcher-1.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/multiverse-core-0.7.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/opentest4j-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/picocli-3.9.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/qdox-1.12.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/testng-6.13.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/xstream-1.4.10.jar"/>
+	<classpathentry kind="lib" path="libs/bsh-core-2.0b4.jar"/>
+	<classpathentry kind="lib" path="libs/javassist-3.20.0-GA.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>

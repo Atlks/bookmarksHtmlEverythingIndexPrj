@@ -32,17 +32,14 @@ public class prod_adminPubScrpt2publishtool3 {
 	//	http://101.132.148.11:9000/admin 
   
 		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg("139.224.11.93:22:root:tA48.k");
-				
-			
-
 		Connection connection = c.conn();
 		logger.info(" conned ok");
 		//Session session = connection.openSession();
 
 	 //	  uploadWar(c, connection);
 
-		
-		 rebootTomcat(connection);
+	//	killtomcat(connection);
+		rebootTomcat(connection);
 
 		System.out.println("--f");
 
@@ -71,12 +68,7 @@ public class prod_adminPubScrpt2publishtool3 {
 	}
 
 	private static void rebootTomcat(Connection connection) throws IOException {
-		String kewword_forkillpid = "admin-tomcat9";
-		try {
-		processUtil.	killTomcat(connection, kewword_forkillpid);
-		} catch (Exception e) {
-			logger.info("", e);
-		}
+		killtomcat(connection);
 	
 		
 		//restart
@@ -99,6 +91,15 @@ public class prod_adminPubScrpt2publishtool3 {
 		logger.info(cmd3);
 		System.out.println(SShFileUtilV3t33.exec(cmd3, connection));
 		 
+	}
+
+	private static void killtomcat(Connection connection) {
+		String kewword_forkillpid = "admin-tomcat9";
+		try {  //ingone mode  
+		processUtil.	killTomcat(connection, kewword_forkillpid);
+		} catch (Exception e) {
+			logger.info("", e);
+		}
 	}
 
 	 

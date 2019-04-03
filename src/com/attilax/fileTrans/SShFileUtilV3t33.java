@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -397,10 +399,11 @@ try {
 		return con;
 	}
 
-	public SShFileUtilV3t33 setcfg(String string) {
+	public SShFileUtilV3t33 setcfg(String string) throws MalformedURLException {
+		URL url = new URL (string);
 		String[] a=string.split(":");
-		this.setScpAddress(a[0]).setScpPort("22").setUsername("root")
-		.setPassword(a[3]);
+		this.setScpAddress(url.getHost()).setScpPort("22").setUsername("root")
+		.setPassword(url.getUserInfo().split(":")[1]);
 		return this;
 	}
 }
