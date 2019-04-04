@@ -24,14 +24,14 @@ public class prod_adminPubScrpt2publishtool3 {
 
 	final static Logger logger = Logger.getLogger(prod_adminPubScrpt2publishtool3.class);
 
-	public static void main(String[] args) throws IOException, ConnEx, AuthEx, createSCPClientEx, uploadFileEx {
+	public static void main(String[] args) throws Exception {
 
 		
 	 
 				
 	//	http://101.132.148.11:9000/admin 
   
-		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg("139.224.11.93:22:root:tA48.k");
+		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg("http://root:tA48.k@139.224.11.93:22");
 		Connection connection = c.conn();
 		logger.info(" conned ok");
 		//Session session = connection.openSession();
