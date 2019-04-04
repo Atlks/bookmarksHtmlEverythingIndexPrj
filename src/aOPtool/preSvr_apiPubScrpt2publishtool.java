@@ -2,6 +2,7 @@ package aOPtool;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -26,18 +27,19 @@ public class preSvr_apiPubScrpt2publishtool {
 
 	final static Logger logger = Logger.getLogger(preSvr_apiPubScrpt2publishtool.class);
 
-	public static void main(String[] args) throws IOException, ConnEx, AuthEx, createSCPClientEx, uploadFileEx {
+	public static void main(String[] args) throws Exception {
 
 		// http://101.132.148.11:9000/admin
 
-		String string = "root:pdm#1921@101.132.148.11:22";
+		String string = "http://root:pdm#1921@101.132.148.11:22";
 		
-		
+		URI url = new URI (string.trim());
+		System.out.println(url.getHost());
 		
 		 
 		System.out.println("****************"+string);
 		 try {
-				Thread.sleep(6000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

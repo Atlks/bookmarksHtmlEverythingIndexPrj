@@ -33,7 +33,7 @@ public class preSvr_adminPubScrpt2publishtool2 {
 
 	final static Logger logger = Logger.getLogger(preSvr_adminPubScrpt2publishtool2.class);
 
-	public static void main(String[] args) throws IOException, ConnEx, AuthEx, createSCPClientEx, uploadFileEx {
+	public static void main(String[] args) throws Exception {
 
 		// chg act tag
 		// http://101.132.148.11:9000/admin
@@ -56,8 +56,8 @@ public class preSvr_adminPubScrpt2publishtool2 {
 		// IOUtils.re
 //		List<String> list = IOUtils.readLines(inputStream, "utf8");
 //		String retstr = Joiner.on("\r\n").join(list);
-//		System.out.println(retstr);
-		String host = "101.132.148.11:22:root:pdm#1921";
+//		System.out.println(retstr); 
+		String host = "http://root:pdm#1921@101.132.148.11:22";
 		System.out.println("****************"+host);
 		 try {
 				Thread.sleep(6000);
@@ -80,7 +80,7 @@ public class preSvr_adminPubScrpt2publishtool2 {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
- 		 rebootTomcat(connection);
+ 	//	 rebootTomcat(connection);
 
 		System.out.println("--f");
 

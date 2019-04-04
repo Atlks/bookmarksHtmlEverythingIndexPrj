@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
+import com.attilax.net.URIparser;
 import com.attilax.util.PrettyUtil;
 import com.attilax.util.shellUtilV2t33;
 import com.csvreader.CsvReader;
@@ -399,11 +402,11 @@ try {
 		return con;
 	}
 
-	public SShFileUtilV3t33 setcfg(String string) throws MalformedURLException {
-		URL url = new URL (string);
-		String[] a=string.split(":");
+	public SShFileUtilV3t33 setcfg(String string) throws  Exception {
+		URIparser url = new URIparser(string.trim());
+		String[] a=string.split(":");  //url.getHost()  "101.132.148.11"
 		this.setScpAddress(url.getHost()).setScpPort("22").setUsername("root")
-		.setPassword(url.getUserInfo().split(":")[1]);
+		.setPassword(url.getUserInfo().split(":")[1]);  //  "pdm#1921" 
 		return this;
 	}
 }

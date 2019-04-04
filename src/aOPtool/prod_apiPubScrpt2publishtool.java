@@ -25,11 +25,11 @@ public class prod_apiPubScrpt2publishtool {
 
 	final static Logger logger = Logger.getLogger(prod_apiPubScrpt2publishtool.class);
 	static	String kewword_forkillpid = "api-tomcat9";
-	public static void main(String[] args) throws IOException, ConnEx, AuthEx, createSCPClientEx, uploadFileEx {
+	public static void main(String[] args) throws Exception {
 
 		// http://101.132.148.11:9000/admin
 //   用户名：root 密码：
-		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg("139.224.11.93:22:root:tA48.k");
+		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg("root:tA48.k@139.224.11.93:22");
 
 		Connection connection = c.conn();
 		logger.info(" conned ok");

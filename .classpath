@@ -104,6 +104,7 @@
 	<classpathentry kind="lib" path="C:/Users/zhoufeiyue/Desktop/apache-groovy-sdk-2.5.6/groovy-2.5.6/lib/xstream-1.4.10.jar"/>
 	<classpathentry kind="lib" path="libs/bsh-core-2.0b4.jar"/>
 	<classpathentry kind="lib" path="libs/javassist-3.20.0-GA.jar"/>
+	<classpathentry kind="lib" path="libs/ognl-3.0.6.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -117,5 +118,6 @@
 			<attribute name="m2e-apt" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
