@@ -1,5 +1,6 @@
 package aOPtool;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -19,27 +20,65 @@ import com.attilax.fileTrans.uploadFileEx;
 import com.attilax.util.PrettyUtil;
 import com.attilax.util.shellUtilV2t33;
 import com.google.common.base.Joiner;
+import com.melloware.jintellitype.HotkeyListener;
+import com.melloware.jintellitype.JIntellitype;
 
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 
 public class preSvr_apiPubScrpt2publishtool {
-
+	static int confirmKey=1;
 	final static Logger logger = Logger.getLogger(preSvr_apiPubScrpt2publishtool.class);
 
 	public static void main(String[] args) throws Exception {
-
-		// http://101.132.148.11:9000/admin
-
-		String string = "http://root:pdm#1921@101.132.148.11:22";
+	String string = "http://root:pdm#1921@101.132.148.11:22";
 		
 		URI url = new URI (string.trim());
 		System.out.println(url.getHost());
+		System.out.println("****************"+string);
+		 //第一步：注册热键，第一个参数表示该热键的标识，第二个参数表示组合键，如果没有则为0，第三个参数为定义的主要热键
+	      
+	       JIntellitype.getInstance().registerHotKey(confirmKey, JIntellitype.MOD_ALT, (int)'C');  
+	    //   JIntellitype.getInstance().registerHotKey(EXIT_KEY_MARK, JIntellitype.MOD_ALT, (int)'Q'); 
+	       
+
+			HotkeyListener	hotkeyListener = new HotkeyListener(){
+				public void onHotKey(int code) {
+					switch(code){
+					case 1:
+	                    //这里写想实现的功能
+						System.out.println("alt+enter");
+						 try {
+							main2(string);
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						break;
+					case 2:
+						System.out.println("alt+s");
+						break;
+					case 3:
+						System.out.println("alt+q");
+						break;
+						
+					}
+				}};
+			JIntellitype.getInstance().addHotKeyListener(hotkeyListener);
+
+		// http://101.132.148.11:9000/admin
+
+	
 		
 		 
-		System.out.println("****************"+string);
-		 try {
-				Thread.sleep(1000);
+
+		
+
+	}
+
+	private static void main2(String string) throws Exception, IOException {
+		try {
+				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -50,14 +89,14 @@ public class preSvr_apiPubScrpt2publishtool {
 		logger.info(" conned ok");
 		// Session session = connection.openSession();
 
-		  uploadWar(c, connection);
+		//  uploadWar(c, connection);
 		 try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		  rebootTomcat(connection);
+	//	  rebootTomcat(connection);
 
 		String kewword_forkillpid = "api-tomcat9";
 		showGrepProcessList(connection, kewword_forkillpid);
@@ -67,7 +106,6 @@ public class preSvr_apiPubScrpt2publishtool {
 		System.out.println(Joiner.on("\r\n").join(SShFileUtilV3t33.exec(cmd3, connection)));
 
 		System.out.println("--f");
-
 	}
 
 	private static void uploadWar(SShFileUtilV3t33 c, Connection connection)

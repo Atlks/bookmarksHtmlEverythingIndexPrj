@@ -17,6 +17,8 @@ import com.attilax.fileTrans.uploadFileEx;
 import com.attilax.util.PrettyUtil;
 import com.attilax.util.shellUtilV2t33;
 import com.google.common.base.Joiner;
+import com.melloware.jintellitype.HotkeyListener;
+import com.melloware.jintellitype.JIntellitype;
 
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
@@ -29,30 +31,66 @@ public class prod_apiPubScrpt2publishtool {
 
 		// http://101.132.148.11:9000/admin
 //   用户名：root 密码：
-		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg("root:tA48.k@139.224.11.93:22");
-
-		Connection connection = c.conn();
-		logger.info(" conned ok");
-		// Session session = connection.openSession();
-
-	//	  uploadWar(c, connection);
-
-	 	  rebootTomcat(connection);
-
+		String url = "http://root:tA48.k@139.224.11.93:22";
+		System.out.println(url);
 		
-		showGrepProcessList(connection, kewword_forkillpid);
+		 //第一步：注册热键，第一个参数表示该热键的标识，第二个参数表示组合键，如果没有则为0，第三个参数为定义的主要热键
+	      
+	       JIntellitype.getInstance().registerHotKey(preSvr_apiPubScrpt2publishtool.confirmKey, JIntellitype.MOD_ALT, (int)'C');  
+	    //   JIntellitype.getInstance().registerHotKey(EXIT_KEY_MARK, JIntellitype.MOD_ALT, (int)'Q'); 
+	       
 
-		String cmd3 = "ps -ef|grep  tomcat";
-		logger.info(cmd3);	 
-		System.out.println(Joiner.on("\r\n").join(SShFileUtilV3t33.exec(cmd3, connection)));
+			HotkeyListener	hotkeyListener = new HotkeyListener(){
+				public void onHotKey(int code) {
+					switch(code){
+					case 1:
+	                    //这里写想实现的功能
+						System.out.println("alt+enter");
+						 try {
+							//	Thread.sleep(7000);
+								SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg(url);
 
-		System.out.println("--f");
+								Connection connection = c.conn();
+								logger.info(" conned ok");
+								// Session session = connection.openSession();
+
+							//	  uploadWar(c, connection);
+
+							 	  rebootTomcat(connection);
+
+								
+								showGrepProcessList(connection, kewword_forkillpid);
+
+								String cmd3 = "ps -ef|grep  tomcat";
+								logger.info(cmd3);	 
+								System.out.println(Joiner.on("\r\n").join(SShFileUtilV3t33.exec(cmd3, connection)));
+
+								System.out.println("--f");
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						break;
+					case 2:
+						System.out.println("alt+s");
+						break;
+					case 3:
+						System.out.println("alt+q");
+						break;
+						
+					}
+				}};
+			JIntellitype.getInstance().addHotKeyListener(hotkeyListener);
+
+			
+	
 
 	}
 
 	private static void uploadWar(SShFileUtilV3t33 c, Connection connection)
 			throws IOException, ConnEx, AuthEx, createSCPClientEx, uploadFileEx {
 		// bek
+		// cp  /tt/www/api-tomcat9/webapps/api.war    /tt/www/api-tomcat9/backup/api.war.48
 		String cmd_bek = "mv  /tt/www/api-tomcat9/webapps/api.war    /tt/www/api-tomcat9/backup/api.war."
 				+ new SimpleDateFormat("yyyy-MM-dd.HHmmss").format(new java.util.Date());
 		logger.info(cmd_bek);
