@@ -563,7 +563,15 @@ public   class URIparser
      *          by the above deviations
      */
     public URIparser(String str) throws URISyntaxException {
+    	
+    	
+    	
         new Parser(str).parse(false);
+        
+        
+        int schamaPos=str.indexOf("//");
+        int pathStratPos=str.indexOf("/",schamaPos+2);
+        this.path=str.substring(pathStratPos);
     }
 
     /**
@@ -1285,9 +1293,11 @@ public   class URIparser
      *          or {@code null} if the path is undefined
      */
     public String getPath() {
-        if ((decodedPath == null) && (path != null))
-            decodedPath = decode(path);
-        return decodedPath;
+//        if ((decodedPath == null) && (path != null))
+//            decodedPath = decode(path);
+//        return decodedPath;
+    	return path;
+    	
     }
 
     /**
@@ -3014,6 +3024,7 @@ public   class URIparser
 
         // [<scheme>:]<scheme-specific-part>[#<fragment>]
         //
+        @SuppressWarnings("all")
         void parse(boolean rsa) throws URISyntaxException {
             requireServerAuthority = rsa;
             int ssp;                    // Start of scheme-specific part
@@ -3054,11 +3065,16 @@ public   class URIparser
             if(protoIndex<1)throw new RuntimeException("no protocal::");
            userInfo=  aStrings[0].split("//")[1];
            int syegeoStart=input.indexOf("//");
-           int hostEnd=input.indexOf(":", syegeoStart+1);
-           String hostportString=this.input.split("@")[1];
-           host=hostportString.split(":")[0];
-           port=Integer.parseInt(hostportString.split(":")[1]);
-        		   //input.substring(syegeoStart+2,hostEnd);
+         
+           int atPos=input.indexOf("@");
+      int portSplitorPos=input.indexOf(":", atPos+1);
+           int hostEnd=input.indexOf(":", atPos+1);
+           int portEnd=input.indexOf("/", hostEnd+1);
+        
+		String hostportString=this.input.split("@")[1];
+           host=this.input.substring(atPos+1,hostEnd);
+        		   //hostportString.split(":")[0];
+           port=Integer.parseInt(  input.substring(hostEnd+1,portEnd));
            System.out.println("");
         }
 

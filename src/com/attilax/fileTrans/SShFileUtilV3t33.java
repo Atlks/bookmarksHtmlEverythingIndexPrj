@@ -370,7 +370,7 @@ try {
 		scpClient = con.createSCPClient();
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("开始上传文件到服务器");
+			logger.debug("开始传输");
 		}
 		return scpClient;
 	}
@@ -386,7 +386,7 @@ try {
 		con.connect();
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("登陆远程服务器" + username + "," + password);
+			logger.debug("登陆远程服务器 "+scpAddress  + "," + username + "," + password);
 		}
 		// 登陆远程服务器的用户名密码
 		boolean isAuthed;

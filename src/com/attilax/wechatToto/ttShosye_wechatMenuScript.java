@@ -12,6 +12,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.nntp.NewGroupsOrNewsQuery;
 import org.apache.http.auth.AuthenticationException;
 
@@ -26,12 +27,15 @@ public class ttShosye_wechatMenuScript {
 	// java -cp  /sqlbek/classes:/lib/*   com.attilax.wechatToto.ttShosye_wechatMenuScript -create -f G:\0db\tmpTable\ttShosye_menu2019-04-01.194326.json
 
 	public static void main(String[] args) throws Exception {
-
+String cmdString=" -get ";
+cmdString="-create -f g:\\0db\\tmpTable\\ttShosye_menu2019-04-09.141601.json";
+args=StringUtils.splitByWholeSeparator(cmdString, " ");
 		final Options options = new Options();
 		final Option option_get = new Option("get", false, "Configuration file path");
 		final Option option = new Option("create", false, "Configuration file path");
+		 
 		options.addOption(option);
-		options.addOption(option_get);
+		options.addOption(option_get).addOption(new Option("f", true, "Configuration file path"));
 
 		CommandLineParser parser = new DefaultParser();
 		CommandLine cmdlineCommandLine = parser.parse(options, args);
@@ -55,21 +59,21 @@ public class ttShosye_wechatMenuScript {
 			token = jsonObject.getString("access_token");
 		}
 
-		if (cmdlineCommandLine.hasOption("create")) {
-			String pathname = cmdlineCommandLine.getOptionValue("f");
-
-			create(token, pathname);
-
-		}
 		if (cmdlineCommandLine.hasOption("get")) {
 			JSONObject MENU = new MenuSeviceImpl().getMenu(token);
 			System.out.println(MENU);
 			String pathname = "g:\\0db\\tmpTable\\ttShosye_menu{0}.json";
 			pathname = MessageFormat.format(pathname,
 					new SimpleDateFormat("yyyy-MM-dd.HHmmss").format(new java.util.Date()));
+			System.out.println(pathname);
 			FileUtils.write(new File(pathname), MENU.toJSONString(MENU, true));
-		}
+		}else 
+			if (cmdlineCommandLine.hasOption("create")) {
+				String pathname = cmdlineCommandLine.getOptionValue("f");
 
+				create(token, pathname);
+
+			} 
 		
 
 	}
