@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.net.nntp.NewGroupsOrNewsQuery;
 import org.apache.http.auth.AuthenticationException;
