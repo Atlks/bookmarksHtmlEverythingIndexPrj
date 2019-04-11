@@ -23,17 +23,20 @@ import com.alibaba.fastjson.JSONObject;
 public class ttShosye_wechatMenuScript {
 
 //	private static final  
-	//   java -cp  /sqlbek/classes:/lib/*   com.attilax.wechatToto.ttShosye_wechatMenuScript -get
-	// java -cp  /sqlbek/classes:/lib/*   com.attilax.wechatToto.ttShosye_wechatMenuScript -create -f G:\0db\tmpTable\ttShosye_menu2019-04-01.194326.json
+	// java -cp /sqlbek/classes:/lib/*
+	// com.attilax.wechatToto.ttShosye_wechatMenuScript -get
+	// java -cp /sqlbek/classes:/lib/*
+	// com.attilax.wechatToto.ttShosye_wechatMenuScript -create -f
+	// G:\0db\tmpTable\ttShosye_menu2019-04-01.194326.json
 
 	public static void main(String[] args) throws Exception {
-String cmdString=" -get ";
-cmdString="-create -f g:\\0db\\tmpTable\\ttShosye_menu2019-04-09.141601.json";
-args=StringUtils.splitByWholeSeparator(cmdString, " ");
+		String cmdString = " -get ";
+		cmdString = "-create -f g:\\0db\\tmpTable\\ttShosye_menu2019-04-09.141601.json";
+		args = StringUtils.splitByWholeSeparator(cmdString, " ");
 		final Options options = new Options();
 		final Option option_get = new Option("get", false, "Configuration file path");
 		final Option option = new Option("create", false, "Configuration file path");
-		 
+
 		options.addOption(option);
 		options.addOption(option_get).addOption(new Option("f", true, "Configuration file path"));
 
@@ -67,14 +70,12 @@ args=StringUtils.splitByWholeSeparator(cmdString, " ");
 					new SimpleDateFormat("yyyy-MM-dd.HHmmss").format(new java.util.Date()));
 			System.out.println(pathname);
 			FileUtils.write(new File(pathname), MENU.toJSONString(MENU, true));
-		}else 
-			if (cmdlineCommandLine.hasOption("create")) {
-				String pathname = cmdlineCommandLine.getOptionValue("f");
+		} else if (cmdlineCommandLine.hasOption("create")) {
+			String pathname = cmdlineCommandLine.getOptionValue("f");
 
-				create(token, pathname);
+			create(token, pathname);
 
-			} 
-		
+		}
 
 	}
 
@@ -82,8 +83,8 @@ args=StringUtils.splitByWholeSeparator(cmdString, " ");
 		String tString = FileUtils.readFileToString(new File(pathname));
 		JSONObject mENU_fromFileJsonObject = JSONObject.parseObject(tString);
 		System.out.println(tString);
-		System.out.println(
-				new MenuSeviceImpl().createMenu(mENU_fromFileJsonObject.getString("menu").toString(), token));
+		System.out
+				.println(new MenuSeviceImpl().createMenu(mENU_fromFileJsonObject.getString("menu").toString(), token));
 	}
 
 }
