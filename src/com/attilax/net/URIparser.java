@@ -570,8 +570,19 @@ public   class URIparser
         
         
         int schamaPos=str.indexOf("//");
-        int pathStratPos=str.indexOf("/",schamaPos+2);
-        this.path=str.substring(pathStratPos);
+        try {
+            int pathStratPos=str.indexOf("/",schamaPos+2);
+            if(pathStratPos==-1)
+            {
+            	 this.path="";
+            	 return;
+            }
+            	 
+            this.path=str.substring(pathStratPos);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    
     }
 
     /**
@@ -3069,11 +3080,15 @@ public   class URIparser
            int atPos=input.indexOf("@");
       int portSplitorPos=input.indexOf(":", atPos+1);
            int hostEnd=input.indexOf(":", atPos+1);
-           int portEnd=input.indexOf("/", hostEnd+1);
+        
         
 		String hostportString=this.input.split("@")[1];
            host=this.input.substring(atPos+1,hostEnd);
         		   //hostportString.split(":")[0];
+           //"http://root:pdm#1921@101.132.148.11:22";
+           int portEnd=input.indexOf("/", hostEnd+1);
+           if(portEnd==-1)
+        	   portEnd=input.length();
            port=Integer.parseInt(  input.substring(hostEnd+1,portEnd));
            System.out.println("");
         }

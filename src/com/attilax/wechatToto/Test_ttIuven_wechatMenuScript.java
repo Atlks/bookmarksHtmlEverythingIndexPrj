@@ -20,7 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 
 //local tt shosye
 //   ttShosye_wechatMenuScript
-public class ttShosye_wechatMenuScript {
+public class Test_ttIuven_wechatMenuScript {
 
 //	private static final  
 	// java -cp /sqlbek/classes:/lib/*
@@ -30,8 +30,10 @@ public class ttShosye_wechatMenuScript {
 	// G:\0db\tmpTable\ttShosye_menu2019-04-01.194326.json
 
 	public static void main(String[] args) throws Exception {
+		String tokenStoreFile = "g:\\0db\\tmpTable\\test_iuven_token.txt";
+		String pathname = "g:\\0db\\tmpTable\\ttIuven_menu{0}.json";
 		String cmdString = " -get ";
-		cmdString = "-create -f g:\\0db\\tmpTable\\ttShosye_menu2019-04-09.141601.json";
+	//	cmdString = "-create -f g:\\0db\\tmpTable\\ttShosye_menu2019-04-09.141601.json";
 		args = StringUtils.splitByWholeSeparator(cmdString, " ");
 		final Options options = new Options();
 		final Option option_get = new Option("get", false, "Configuration file path");
@@ -45,18 +47,19 @@ public class ttShosye_wechatMenuScript {
 
 		String token;
 
-		String tokenStoreFile = "g:\\0db\\tmpTable\\shosye_token.txt";
+	
 		try {
 			token = WechatUtil.getTokenFromFile(tokenStoreFile);
 			WechatUtil.tokenIsOk(token);
 		} catch (FileNotFoundException | AuthenticationException e) {
 
-			WXAuthUtil.APPID = "wx87b7c22b03940dc6" + "";
-			WXAuthUtil.APPSECRET = "e042ce4ddd154870cceed01b1fbc6ee9";
+			WXAuthUtil.APPID = "wx8ab1db22113b030d" + "";
+			WXAuthUtil.APPSECRET = "21189c9ca7daefacc8d2a4177eb90fc6";
 
 			JSONObject jsonObject = WXAuthUtil.getAccessToken();
 			System.out.println(jsonObject);
-			jsonObject.put("gettime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date()));// );
+			String datex = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+			jsonObject.put("gettime", datex);// );
 			FileUtils.write(new File(tokenStoreFile), jsonObject.toJSONString());
 			// String access_token= jsonObject.getString("access_token")
 			token = jsonObject.getString("access_token");
@@ -65,15 +68,15 @@ public class ttShosye_wechatMenuScript {
 		if (cmdlineCommandLine.hasOption("get")) {
 			JSONObject MENU = new MenuSeviceImpl().getMenu(token);
 			System.out.println(MENU);
-			String pathname = "g:\\0db\\tmpTable\\ttShosye_menu{0}.json";
+		
 			pathname = MessageFormat.format(pathname,
 					new SimpleDateFormat("yyyy-MM-dd.HHmmss").format(new java.util.Date()));
 			System.out.println(pathname);
 			FileUtils.write(new File(pathname), MENU.toJSONString(MENU, true));
 		} else if (cmdlineCommandLine.hasOption("create")) {
-			String pathname = cmdlineCommandLine.getOptionValue("f");
+			String pathname2 = cmdlineCommandLine.getOptionValue("f");
 
-			create(token, pathname);
+			create(token, pathname2);
 
 		}
 

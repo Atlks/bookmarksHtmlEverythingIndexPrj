@@ -37,35 +37,43 @@ public class preSvr_adminPubScrpt2publishtool2 {
 
 		// chg act tag
 		// http://101.132.148.11:9000/admin
-		String sprcfg = "G:\\0ttapi\\tt-api\\com-tt-admin\\src\\main\\resources\\application.yml";
-		System.out.println(sprcfg);
-		String tString = FileUtils.readFileToString(new File(sprcfg));
-		String[] linesArr=tString.split("\r\n");
-		String line17=linesArr[16];		
-		line17 = line17.replace("preprod", "pre");
-		linesArr[16]=line17;	
-		tString=Joiner.on("\r\n").join(linesArr);
-		FileUtils.write(new File(sprcfg), tString);
-		
-		
-		//maven
+//		String sprcfg = "G:\\0ttapi\\tt-api\\com-tt-admin\\src\\main\\resources\\application.yml";
+//		System.out.println(sprcfg);
+//		String tString = FileUtils.readFileToString(new File(sprcfg));
+//		String[] linesArr=tString.split("\r\n");
+//		String line17=linesArr[16];		
+//		line17 = line17.replace("preprod", "pre");
+//		linesArr[16]=line17;	
+//		tString=Joiner.on("\r\n").join(linesArr);
+//		FileUtils.write(new File(sprcfg), tString);
+
+		// maven
 //mavenExec();
-			 
-		
-		
+
 		// IOUtils.re
 //		List<String> list = IOUtils.readLines(inputStream, "utf8");
 //		String retstr = Joiner.on("\r\n").join(list);
 //		System.out.println(retstr); 
 		String host = "http://root:pdm#1921@101.132.148.11:22";
-		System.out.println("****************"+host);
-		 try {
-				Thread.sleep(6000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
+		System.out.println("****************" + host);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		// java.io.InputStreamReader继承了Reader类
+		String read = null;
+		System.out.print("确认数据：");
+
+		read = br.readLine();
+		if (!read.trim().equals("y")) {
+			System.out.println("...finish");
+			return;
+		}
+
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg(host);
 
 		Connection connection = c.conn();
@@ -80,23 +88,23 @@ public class preSvr_adminPubScrpt2publishtool2 {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
- 	//	 rebootTomcat(connection);
+		// rebootTomcat(connection);
 
 		System.out.println("--f");
 
 	}
 
 	private static void mavenExec() throws IOException {
-		String mvnString="Z:\\soft\\apache-maven-3.5.4-bin\\apache-maven-3.5.4\\bin\\mvn.cmd";
-				String cmdString = mvnString+"    -f G:\\0ttapi\\tt-api\\com-tt-admin\\pom_prod.xml install";
-				System.out.println(cmdString);
-				Process process = Runtime.getRuntime().exec(cmdString);
-				InputStream inputStream = process.getInputStream();
-				// 消费掉IO流，防止程序被阻塞卡死
-				printStream(inputStream,"stdstream:>");
-		
-				// 消费掉IO流，防止程序被阻塞卡死
-				printStream(process.getErrorStream(),"errstream:>");
+		String mvnString = "Z:\\soft\\apache-maven-3.5.4-bin\\apache-maven-3.5.4\\bin\\mvn.cmd";
+		String cmdString = mvnString + "    -f G:\\0ttapi\\tt-api\\com-tt-admin\\pom_prod.xml install";
+		System.out.println(cmdString);
+		Process process = Runtime.getRuntime().exec(cmdString);
+		InputStream inputStream = process.getInputStream();
+		// 消费掉IO流，防止程序被阻塞卡死
+		printStream(inputStream, "stdstream:>");
+
+		// 消费掉IO流，防止程序被阻塞卡死
+		printStream(process.getErrorStream(), "errstream:>");
 	}
 
 	private static void printStream(InputStream inputStream, String outtag) {
@@ -112,7 +120,7 @@ public class preSvr_adminPubScrpt2publishtool2 {
 					String line = null;
 
 					while ((line = br.readLine()) != null)
-						System.out.println(outtag+""+line);
+						System.out.println(outtag + "" + line);
 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
