@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.function.Function;
 
 import javax.mail.BodyPart;
 import javax.mail.MessagingException;
@@ -19,6 +20,7 @@ import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,6 +32,7 @@ import org.jsoup.select.NodeVisitor;
 
 import com.alibaba.fastjson.JSON;
 import com.attilax.time.sysncTimeX;
+import com.attilax.util.FileCacheManager;
 import com.beust.jcommander.internal.Lists;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
@@ -61,7 +64,10 @@ public class emailMimeParse {
 		//
 	}
 
-	private static String eml2txt(String emlFile) throws  Exception {
+	public static String eml2txt(String emlFile) throws  Exception {
+		
+		if(emlFile.contains("曾超 20年"))
+			System.out.println("");
 		Properties props = System.getProperties();
 		props.put("mail.host", "smtp.dummydomain.com");
 		props.put("mail.transport.protocol", "smtp");
@@ -71,8 +77,8 @@ public class emailMimeParse {
 		System.out.println(source.available());
 		MimeMessage message = new MimeMessage(mailSession, source);
 		System.out.println("message.getSubject()  ");
-		System.out.println(MimeUtility.decodeText(message.getSubject()));
-		;
+//		System.out.println(MimeUtility.decodeText(message.getSubject()));
+//		;
 
 		System.out.println("getContentType" + message.getContentType());
 		// getContentType
@@ -132,7 +138,7 @@ public class emailMimeParse {
 	}
 
 	private static boolean isBlogckElement(Element e) {
-		System.out.println(e.tagName());
+	//	System.out.println(e.tagName());
 		if (e.tagName().toString().equals("br"))
 
 			return true;
@@ -168,7 +174,7 @@ public class emailMimeParse {
 				Object content = mbp.getContent();
 				tMap.put("mbp.getContent", content);
 				tMap.put("mbp.getContentType", mbp.getContentType());
-				if (mbp.getContentType().trim().startsWith("text/html;"))
+				if (mbp.getContentType().trim().startsWith("text/html"))
 					return mbp.getContent().toString();
 				list.add(tMap);
 				System.out.println("");
@@ -238,5 +244,58 @@ public class emailMimeParse {
 		System.out.println("message.getSubject()  ");
 		return MimeUtility.decodeText(message.getSubject());
 
+	}
+
+	public static String eml2txtWithCache(String absolutePath, FileCacheManager fileCacheManager, Function<String, String> fun) throws Exception {
+		
+		if(fileCacheManager.existCache(absolutePath))
+			return fileCacheManager.getCache(absolutePath);
+	
+		
+		
+		String eml2txt = eml2txt(absolutePath,fun);
+		if( eml2txt.trim().length()>50)		
+			fileCacheManager.setCache(absolutePath,eml2txt );
+		return eml2txt;
+	}
+
+	private static String eml2txt(String emlFile, Function<String, String> fun) throws Exception {
+		if(emlFile.contains("曾超 20年"))
+			System.out.println("");
+		Properties props = System.getProperties();
+		props.put("mail.host", "smtp.dummydomain.com");
+		props.put("mail.transport.protocol", "smtp");
+
+		Session mailSession = Session.getDefaultInstance(props, null);
+		InputStream source = new FileInputStream(emlFile);
+		System.out.println(source.available());
+		MimeMessage message = new MimeMessage(mailSession, source);
+		System.out.println("message.getSubject()  ");
+//		System.out.println(MimeUtility.decodeText(message.getSubject()));
+//		;
+
+		System.out.println("getContentType" + message.getContentType());
+		// getContentType
+		// multipart/related;boundary="--boundary_0_9ed30801b0c180c69b3c5d74fede848e"
+		// traveMessage(m_debugMap, message);
+		String htmlBody = gethtmlBody(message);
+		  htmlBody = fun.apply(htmlBody);
+		
+		
+		String cacheDir= "g:\\0db\\doccache";
+		String basename=FilenameUtils.getName(emlFile);
+		File file2 = new File(cacheDir+"\\"+basename+".html");
+		FileUtils.write(file2, htmlBody);
+	//	new FileCacheManager().setCache(emlFile+".html", htmlBody);
+		Document document = Jsoup.parse(htmlBody);
+ 	 
+	 
+	 
+		String txtFinal =ele2txt(document);
+		txtFinal=txtFinal.replaceAll("\r\n\r\n", "\r\n");
+		txtFinal=txtFinal.replaceAll("\r\n\r\n", "\r\n");
+		txtFinal=txtFinal.replaceAll("\r\n\r\n", "\r\n");
+//	String apply = fun.apply(txtFinal);
+	return  txtFinal ;
 	}
 }
