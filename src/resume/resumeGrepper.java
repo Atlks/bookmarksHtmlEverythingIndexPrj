@@ -16,6 +16,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSON;
@@ -30,10 +31,11 @@ import emailPKg.emailMimeParse;
 import officefile.wordutilV2t34;
 
 public class resumeGrepper {
+	private static final String DOCCACHE = "g:\\0db\\doccache";
 	static Logger logger = Logger.getLogger(resumeGrepper.class);
 
 	public static void main(String[] args) throws Exception {
-		String dirString = "C:\\Users\\zhoufeiyue\\Downloads\\resm415";
+		String dirString = "C:\\Users\\zhoufeiyue\\Downloads\\resm416";
 		List li = Lists.newLinkedList();
 		Files.walkFileTree(Paths.get(dirString), new SimpleFileVisitor<Path>() {
 
@@ -43,7 +45,9 @@ public class resumeGrepper {
 				// return super.visitFile(file, attrs);
 				System.out.println("\t正在访问" + file + "文件");
 
-				if (file.startsWith("~$")) {
+				String basenameString=FilenameUtils.getName(file.toFile().getAbsolutePath());
+			 
+				if (basenameString.startsWith("~$")) {
 					// System.out.println("******找到目标文件Test.java******");
 					return FileVisitResult.CONTINUE; // 找到了就终止
 				}
@@ -58,7 +62,7 @@ public class resumeGrepper {
 					// System.out.println("******找到目标文件Test.java******");
 					try {
 						String readPDFV2WithCache = ExtractTextFromPDF
-								.readPDFV2WithCache(file.toAbsolutePath().toString(), "g:\\0db\\doccache");
+								.readPDFV2WithCache(file.toAbsolutePath().toString(), DOCCACHE);
 						Map map = parseJilyePDf(readPDFV2WithCache);
 						map.put("f", file.toString());
 						li.add(map);
@@ -78,7 +82,7 @@ public class resumeGrepper {
 				if (file.toAbsolutePath().toString().contains("智联")) {
 
 					String html2txt = HtmlUtilV2t33.readHtmlFile2txtWithCache(file.toFile().toString(),
-							"g:\\0db\\doccache");
+							DOCCACHE);
 
 					// System.out.println(html2txt);
 					Map map = parseJilye(html2txt);
@@ -86,12 +90,14 @@ public class resumeGrepper {
 					li.add(map);
 					return FileVisitResult.CONTINUE; // 没找到继续找
 				}
-
+				FileCacheManager fileCacheManager = new FileCacheManager(DOCCACHE);
+				if (file.toFile().getAbsolutePath().contains("完颜杨威"))
+					System.out.println("");
 				// docx
 				if (file.toAbsolutePath().toString().endsWith(".docx")) {
 					try {
 						String readWordV2 = wordutilV2t34.readWordDocxWithCache(file.toFile().getAbsolutePath(),
-								"g:\\0db\\doccache");
+								fileCacheManager);
 						Map map = parseJilye(readWordV2);
 						li.add(map);
 						map.put("f", file.toString());
@@ -101,48 +107,30 @@ public class resumeGrepper {
 					}
 
 				}
-
+				
 				if (file.toFile().getAbsolutePath().contains("雷耀山"))
 					System.out.println("");
 				if (file.toFile().getAbsolutePath().contains("曾超 20年"))
 					System.out.println("");
-
+			
 				// doc
 				if (file.toAbsolutePath().toString().endsWith(".doc")) {
 
 					try {
 						String eml2txt = wordutilV2t34.readWordWithCache(file.toFile().getAbsolutePath(),
-								"g:\\0db\\doccache");
+								fileCacheManager);
 						// System.out.println(eml2txt);
 						Map map = parseJilye(eml2txt);
 						map.put("f", file.toString());
 						li.add(map);
 					} catch (Exception e) {
+						//doc eml fmt 
 						try {
 
-							FileCacheManager fileCacheManager = new FileCacheManager("g:\\0db\\doccache");
+							 // fileCacheManager = new FileCacheManager(DOCCACHE);
+						
 							String eml2txt = emailMimeParse.eml2txtWithCache(file.toFile().getAbsolutePath(),
-									fileCacheManager, new Function<String, String>() {
-
-										@Override
-										public String apply(String Content) {
-											String CorrectContent = Content;
-											try {
-												if (file.toFile().getAbsolutePath().contains("曾超 20年")) {
-													CorrectContent = new String(Content.getBytes("iso-8859-1"),
-															"gb2312");
-													return CorrectContent;
-												} else {
-													return Content;
-												}
-											} catch (UnsupportedEncodingException e) {
-												// TODO Auto-generated catch block
-												e.printStackTrace();
-											}
-											return Content;
-
-										}
-									});
+									fileCacheManager);
 							// System.out.println(eml2txt);
 							Map map = parseJilye(eml2txt);
 							map.put("f", file.toString());
@@ -180,6 +168,7 @@ public class resumeGrepper {
 		Map map = Maps.newLinkedHashMap();
 		String[] aStrings = html2txt.split("\r\n");
 		for (String line : aStrings) {
+			line=line.replaceAll(" ", "");
 			if (line.contains("年 龄")) {
 				line = line.replaceAll("\\u00A0", "");
 				map.put("age", line);
@@ -199,6 +188,7 @@ public class resumeGrepper {
 		for (String line : aStrings) {
 			if (line.contains("工作经验")) {
 				line = line.replaceAll("\\u00A0", "");
+				if(map.get("age")==null)
 				map.put("age", line);
 
 			}
@@ -206,7 +196,72 @@ public class resumeGrepper {
 			if (line.contains("薪资"))
 				map.put("salary", line);
 		}
+		
+		if(map.get("age")==null)
+			map.put("age",getByKeyword(html2txt,"出生日期"));
+		if(map.get("salary")==null)
+			map.put("salary", getSalaryJilye(html2txt));
 		return map;
 	}
 
+	private static Object getSalaryJilye(String html2txt) {
+	 try {
+		 String[] aStrings = html2txt.split("\r\n");
+			int n=0;
+			for (String line : aStrings) {
+				
+				if (line.contains("期望月薪")) {
+					return aStrings[n+1];
+
+				}
+				n++;
+			 
+			}
+			return null;
+	} catch (Exception e) {
+		e.printStackTrace();
+		return null;
+	}
+	
+		
+		
+		 
+	}
+
+	private static Object getByKeyword(String html2txt, String keyword) {
+		String[] aStrings = html2txt.split("\r\n");
+		for (String line : aStrings) {
+			if (line.contains(keyword)) {
+				return line;
+
+			}
+		 
+		}
+		return null;
+	}
+		 
+	
+	
+//	Function<String, String> fun = new Function<String, String>() {
+//
+//		@Override
+//		public String apply(String Content) {
+//			String CorrectContent = Content;
+//			try {
+//				if (file.toFile().getAbsolutePath().startsWith("【研发总监")) {
+//					CorrectContent = new String(Content.getBytes("iso-8859-1"),
+//							"gb2312");
+//					return CorrectContent;
+//				} else {
+//					return Content;
+//				}
+//			} catch (UnsupportedEncodingException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			return Content;
+//
+//		}
+//	};
+	 
 }

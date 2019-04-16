@@ -26,6 +26,9 @@ import org.apache.xmlbeans.XmlException;
 import org.junit.Test;
 
 import com.attilax.util.ExUtilV2t33;
+import com.attilax.util.FileCacheManager;
+
+import freemarker.core.ReturnInstruction.Return;
 
 public class wordutilV2t34 {
 
@@ -202,32 +205,37 @@ public class wordutilV2t34 {
 		return buffer;
 	}
 	
-	public static String readWordDocxWithCache(String path,String cacheDir) throws Exception {
+	public static String readWordDocxWithCache(String path,FileCacheManager fileCacheManager) throws Exception {
 		
-		String basename=FilenameUtils.getName(path);
-		File file2 = new File(cacheDir+"\\"+basename+".txt");
-		if(file2.exists())
-		{
-			return FileUtils.readFileToString(file2);
-		}
+		String key = FilenameUtils.getName(path)+".txt";
+		if(fileCacheManager.exist( key))
+				return fileCacheManager.get(key); 
 		
 		String buffer;
 		OPCPackage opcPackage = POIXMLDocument.openPackage(path);
 		POIXMLTextExtractor extractor = new XWPFWordExtractor(opcPackage);
 		buffer = extractor.getText();
+		
+		if( buffer.trim().length()>50)
+			fileCacheManager.set(key, buffer); 
 		return buffer;
 	}
 
-	public static String readWordWithCache(String path, String cacheDir) throws Exception {
-		String basename=FilenameUtils.getName(path);
-		File file2 = new File(cacheDir+"\\"+basename+".txt");
-		if(file2.exists())
-		{
-			return FileUtils.readFileToString(file2);
-		}
+	public static String readWordWithCache(String path, FileCacheManager fileCacheManager) throws Exception {
+//		String basename=FilenameUtils.getName(path);
+//		File file2 = new File(fileCacheManager+"\\"+basename+".txt");
+//		if(file2.exists())
+//		{
+//			return FileUtils.readFileToString(file2);
+//		}
+		
+		String key = FilenameUtils.getName(path)+".txt";
+		if(fileCacheManager.exist( key))
+				return fileCacheManager.get(key); 
+		
 		String result = readWord(path);
 		if( result.trim().length()>50)
-		FileUtils.write(file2, result);
+			fileCacheManager.set(key, result); 
 	
 		return result;
 	}

@@ -15,8 +15,12 @@ import com.google.common.collect.Lists;
 
 public class HtmlUtilV2t33 {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) throws IOException {
+		String fString="G:\\0db\\doccache\\【研发总监 _ 上海 30k-35k】曾超 20年.doc.html";
+		 System.out.println(readHtmlFile2txt(fString));
+		
+	//	String htmlfrag=FileUtils.readFileToString(new File( "G:\\0ati\\新建文本文档.txt"));
+	//	System.out.println(  html2txt(htmlfrag) );
 
 	}
 	
@@ -50,6 +54,11 @@ public class HtmlUtilV2t33 {
 	}
 
 	public static String ele2txt(Element e) {
+		
+		//maybe p hto yo yva tag can trans...but is txt is not warp by any tag ,then txt is miss..
+		//so if p tag ,will be last tag to directly ret txt
+		if (e.tagName().toString().equals("p"))
+			return "\r\n" + e.text() + "\r\n";
 		if (e.children().size() > 0) {
 			List txtList = Lists.newLinkedList();
 			for (Element e_sub : e.children()) {
@@ -64,6 +73,7 @@ public class HtmlUtilV2t33 {
 			 
 
 		} else { // no children
+			//System.out.println(e);
 			if (isBlogckElement(e))
 				return "\r\n" + e.text() + "\r\n";
 			else {
