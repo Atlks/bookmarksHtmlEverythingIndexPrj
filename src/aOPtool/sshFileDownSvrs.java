@@ -22,10 +22,13 @@ import ch.ethz.ssh2.SCPClient;
 @SuppressWarnings("all")
 public class sshFileDownSvrs {
 
+
 	// java -cp /lib/*:/targetBookmark/classes aOPtool.sshFileDownSvrs 	// 101.132.148.11:22:root:pdm#1921 /tt/www/admin-tomcat9/webapps/admin.war.0402 /0downfileDir1/
 	// 101.132.148.11:22:root:pdm#1921 /0db_tmpTable/prod_token.txt g:/0downfile
 //    java -cp /lib/*:/targetBookmark/classes aOPtool.sshFileDownSvrs   http://101.132.148.11:22:root:pdm#1921/tt/www/admin-tomcat9/webapps/admin.war.0402 /0downfileDir1/
 	public static void main(String[] args) throws Exception {
+		
+	
 
 		String cmdString = "http://root:pdm#1921@101.132.148.11:22/0db_tmpTable/prod_token.txt  g:/0downfileDir3/";
 	//	 cmdString = "http://root:pdm@101.132.148.11:22/0db_tmpTable/prod_token.txt  g:/0downfileDir3/ ";
