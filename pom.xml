@@ -9,6 +9,9 @@
 <version>1.1</version>
 	<artifactId>bookmarksArti</artifactId>
 	<name>bookmarksName</name>
+	   <packaging>war</packaging>
+	   
+	   
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -25,6 +28,92 @@
 	<dependencies>
 
 
+
+
+<dependency>
+
+
+<!-- tomcat  -->
+
+            <groupId>org.apache.tomcat.embed</groupId>
+
+            <artifactId>tomcat-embed-core</artifactId>
+
+            <version>8.5.9</version>
+
+        </dependency>
+
+        <dependency>
+
+            <groupId>org.apache.tomcat</groupId>
+
+            <artifactId>tomcat-util</artifactId>
+
+            <version>8.5.9</version>
+
+        </dependency>
+
+        <dependency>
+
+            <groupId>org.apache.tomcat.embed</groupId>
+
+            <artifactId>tomcat-embed-jasper</artifactId>
+
+            <version>8.5.9</version>
+
+        </dependency>
+
+        <dependency>
+
+            <groupId>org.apache.tomcat.embed</groupId>
+
+            <artifactId>tomcat-embed-logging-juli</artifactId>
+
+            <version>8.5.2</version>
+
+        </dependency>
+ 
+    <!-- http://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-core -->
+<dependency>
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-core</artifactId>
+    <version>2.2.11</version>
+</dependency>
+<!-- http://mvnrepository.com/artifact/javax.xml/jaxb-api -->
+<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.2.11</version>
+</dependency>
+
+ 
+<!-- http://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
+<dependency>
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-impl</artifactId>
+    <version>2.2.11</version>
+</dependency>
+ 
+<!--  tomcat end -->
+    
+    
+ <dependency>
+	    <groupId>com.mchange</groupId>
+	    <artifactId>c3p0</artifactId>
+	    <version>0.9.5.2</version>
+	</dependency>	
+ 
+ 
+ 
+
+<dependency>
+	    <groupId>com.mchange</groupId>
+	    <artifactId>c3p0</artifactId>
+	    <version>0.9.5.2</version>
+	</dependency>	
+
+
+<!--  ati poi pdfbox -->
 <dependency>
     <groupId>org.apache.poi</groupId>
     <artifactId>poi-ooxml</artifactId>
@@ -153,10 +242,22 @@
 			<version>1.0.3</version>
 		</dependency>
 	</dependencies>
-	<packaging>jar</packaging>
+ 
 	
 	<build>
   <plugins>
+  
+  
+  <plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<!--如果想在没有web.xml文件的情况下构建WAR，请设置为false。 -->
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			
+			
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-compiler-plugin</artifactId>

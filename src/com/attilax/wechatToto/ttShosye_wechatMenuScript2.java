@@ -31,7 +31,7 @@ public class ttShosye_wechatMenuScript2 {
 
 	public static void main(String[] args) throws Exception {
 		String cmdString = " -get ";
-		cmdString = "-create -f G:\\0db\\tmpTable\\ttIuven_menu_toShosye.json";
+	//	cmdString = "-create -f G:\\0db\\tmpTable\\ttIuven_menu_toShosye.json";
 		args = StringUtils.splitByWholeSeparator(cmdString, " ");
 		final Options options = new Options();
 		final Option option_get = new Option("get", false, "Configuration file path");
