@@ -15,7 +15,7 @@ public class clrusreTest {
 		 string = "唐唐云学堂 删除 18821766710 056060";
 		args = StringUtils.splitByWholeSeparator(string, " ");
 		clruser.closeEcho=true;
-		clruser.main(args);
+	//	clruser.main(args);
  	System.out.println( FileUtils.readFileToString(new File(clruser.outFile)));
 
 	}
