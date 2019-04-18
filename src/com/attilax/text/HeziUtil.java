@@ -93,4 +93,9 @@ public class HeziUtil {
 			 
 			
 	}
+
+	public static String replaceHeziComma(String string) {
+		string=string.replaceAll("；", ";");	string=string.replaceAll("：", ":");		string=string.replaceAll("＠", "@");	
+		return string;
+	}
 } // 分给上面的吧，这也是一种方法

@@ -31,6 +31,8 @@ import com.google.common.collect.Lists;
  
 // http://47.100.12.36:5201/api416?param=唐唐云学堂 删除 18821766710 056060   
  //  http://localhost:888/api416?param=唐唐云学堂 删除 18821766710 056060
+//   http://47.100.12.36:5201/api416?param=查看：//18821766710:056060@唐唐云学堂; 删除://18821766710:851924@唐唐云学堂；查看：//18821766710:056060@唐唐云学堂
+//   http://localhost:5201/api416?param=查看：//18821766710:056060@唐唐云学堂;  查看：//18821766710:05@唐唐云学堂
 //   aOPtool.clrusrTomcatStart 5201
 public class clrusrTomcatStart {
 
@@ -44,8 +46,7 @@ public class clrusrTomcatStart {
 		// get url out mapper
 		List list = Lists.newArrayList();
 		list.add(clruser.class);
-		Map<String, MethodObj> url_method_maps = MvcUtil.get_url_out_mapper(list);
-		logger.info(url_method_maps);
+	
 		
 		// javax.servlet.ServletContext
 		// javax.servlet.ServletContext.getVirtualServerName
@@ -77,7 +78,7 @@ public class clrusrTomcatStart {
 			public void accept(Map  mp) {
 				Context Context1=(Context) mp.get("Context");
 				Tomcat Tomcat1=(Tomcat) mp.get("Tomcat");						
-			 	Tomcat1.addServlet(Context1, "servletName",  new MvcServlet(url_method_maps));
+			 	Tomcat1.addServlet(Context1, "servletName",  new MvcServlet(list));
 				Context1.addServletMappingDecoded("/*","servletName");//配置servlet映射路径
 				
 			}

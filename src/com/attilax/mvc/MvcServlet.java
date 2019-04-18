@@ -3,6 +3,7 @@ package com.attilax.mvc;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.Servlet;
@@ -14,15 +15,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.reflect.ConstructorUtils;
+import org.apache.log4j.Logger;
 
 import com.attilax.util.ExUtilV2t33;
 
-public class MvcServlet implements Servlet {
+import aOPtool.preSvr_adminPubScrpt2publishtool2;
 
+public class MvcServlet implements Servlet {
+	final static Logger logger = Logger.getLogger(MvcServlet.class);
 	private Map<String, MethodObj> url_method_maps;
 
 	public MvcServlet(Map<String, MethodObj> url_method_maps) {
 		this.url_method_maps=url_method_maps;
+	}
+
+	public MvcServlet(List list) {
+		Map<String, MethodObj> url_method_maps = MvcUtil.get_url_out_mapper(list);
+		this.url_method_maps=url_method_maps;
+		logger.info(url_method_maps);
 	}
 
 	@Override

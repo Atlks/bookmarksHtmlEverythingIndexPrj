@@ -3270,38 +3270,11 @@ public class URIparser implements Comparable<URIparser>, Serializable {
 		@SuppressWarnings("all")
 		void parse(boolean rsa) throws URISyntaxException {
 			requireServerAuthority = rsa;
-			int ssp; // Start of scheme-specific part
-			int n = input.length();
-			int p = scan(0, n, "/?#", ":");
-			if ((p >= 0) && at(p, n, ':')) {
-				if (p == 0)
-					failExpecting("scheme name", 0);
-				checkChar(0, L_ALPHA, H_ALPHA, "scheme name");
-				checkChars(1, p, L_SCHEME, H_SCHEME, "scheme name");
-				scheme = substring(0, p);
-				p++; // Skip ':'
-				ssp = p;
-				if (at(p, n, '/')) {
-					p = parseHierarchical(p, n);
-				} else {
-					int q = scan(p, n, "", "#");
-					if (q <= p)
-						failExpecting("scheme-specific part", p);
-					checkChars(p, q, L_URIC, H_URIC, "opaque part");
-					p = q;
-				}
-			} else {
-				ssp = 0;
-				p = parseHierarchical(0, n);
-			}
-			schemeSpecificPart = substring(ssp, p);
-			if (at(p, n, '#')) {
-				checkChars(p + 1, n, L_URIC, H_URIC, "fragment");
-				fragment = substring(p + 1, n);
-				p = n;
-			}
-			if (p < n)
-				fail("end of URI", p);
+			 
+		 		scheme = getScheme(this.input);
+			 
+		//		fragment = substring(p + 1, n);
+			 
 
 			
 			try {
@@ -3333,10 +3306,17 @@ public class URIparser implements Comparable<URIparser>, Serializable {
 			
 		}
 
+		private String getScheme(String input2) {
+			int syegeoStart = input.indexOf("://");
+			return input2.substring(0,syegeoStart);
+		}
+
 		private int getPort(String input2) {
 			if(hasUserinfo(input2)) {
 				int atPos = input.indexOf("@");
 				int portSplitorPos = input.indexOf(":", atPos + 1);
+				if( portSplitorPos==-1 )   // noport
+					return 0;
 				int hostEnd = input.indexOf(":", atPos + 1);
 				int portEnd = input.indexOf("/", hostEnd + 1);
 				if (portEnd == -1)
@@ -3357,6 +3337,9 @@ public class URIparser implements Comparable<URIparser>, Serializable {
 			if(hasUserinfo(input2)) {
 				int atPos = input.indexOf("@");
 				int portSplitorPos = input.indexOf(":", atPos + 1);
+				if(portSplitorPos==-1)  // noport
+					return input2.substring(atPos+1);
+				// with port
 				int hostEnd = input.indexOf(":", atPos + 1);
 				host = this.input.substring(atPos + 1, hostEnd);
 				return  host;
