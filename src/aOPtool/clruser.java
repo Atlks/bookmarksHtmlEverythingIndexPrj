@@ -359,6 +359,7 @@ curEx.data.put("cur_statment语句", stat);
 		Properties p = new Properties();
 
 		String pathname = getCfgpath();
+		log.info("getCfgpath"+pathname );
 		p.load(new FileReader(new File(pathname)));
 		return p.getProperty(envikeyString);
 	}
