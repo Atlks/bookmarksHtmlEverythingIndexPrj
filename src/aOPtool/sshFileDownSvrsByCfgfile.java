@@ -25,11 +25,7 @@ import ch.ethz.ssh2.SCPClient;
 public class sshFileDownSvrsByCfgfile {
 
 	// java -cp /lib/*:/targetBookmark/classes aOPtool.sshFileDownSvrs //
-	// 101.132.148.11:22:root:pdm#1921 /tt/www/admin-tomcat9/webapps/admin.war.0402
-	// /0downfileDir1/
-	// 101.132.148.11:22:root:pdm#1921 /0db_tmpTable/prod_token.txt g:/0downfile
-//    java -cp /lib/*:/targetBookmark/classes aOPtool.sshFileDownSvrs   http://101.132.148.11:22:root:pdm#1921/tt/www/admin-tomcat9/webapps/admin.war.0402 /0downfileDir1/
-	public static void main(String[] args) throws Exception {
+ 	public static void main(String[] args) throws Exception {
 		// root:pdm#1921
 		String pwdfileString="${g:/11pwd.txt}";
 		String cmdString = "http://${g:/11pwd.txt}@101.132.148.11:22/0db_tmpTable/prod_token.txt  g:/0downfileDir3/";
@@ -46,10 +42,8 @@ public class sshFileDownSvrsByCfgfile {
 	}
 
 	private static void t(String[] args) throws URISyntaxException, Exception, IOException {
-		String cmdString = "http://root:pdm#1921@101.132.148.11:22/0db_tmpTable/prod_token.txt  g:/0downfileDir3/";
-		// cmdString = "http://root:pdm@101.132.148.11:22/0db_tmpTable/prod_token.txt
-		// g:/0downfileDir3/ ";
-		// cmdString = "101.132.148.11:22:root:pdm#1921
+		String cmdString = "http://r 2/0db_tmpTable/prod_token.txt  g:/0downfileDir3/";
+		 
 		// /tt/www/admin-tomcat9/webapps/admin.war.0402 g:/0downfileDir1/ ";
 		// args=StringUtils.splitByWholeSeparator(cmdString, " ",2);
 		// StringUtils.split
@@ -57,7 +51,7 @@ public class sshFileDownSvrsByCfgfile {
 		System.out.println(timeUtilV2t33.Now_CST());
 		System.out.println("will sleep 7sec ...");
 		// Thread.sleep(3000);
-		String url;// = "101.132.148.11:22:root:pdm#1921";
+		String url;
 		url = args[0];
 		URIparser uri = new URIparser(args[0]);
 		String remoteFile = uri.getPath();

@@ -1,6 +1,7 @@
 package aOPtool;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
 import com.attilax.fileTrans.AuthEx;
@@ -31,7 +33,7 @@ public class preSvr_apiPubScrpt2publishtool {
 	final static Logger logger = Logger.getLogger(preSvr_apiPubScrpt2publishtool.class);
 
 	public static void main(String[] args) throws Exception {
-	String string = "http://root:pdm#1921@101.132.148.11:22";
+	String string =  FileUtils.readFileToString(new File("H:\\0db\\pre11.txt")); ;  ;
 		
 		URI url = new URI (string.trim());
 		System.out.println(url.getHost());

@@ -54,7 +54,7 @@ public class preSvr_adminPubScrpt2publishtool2 {
 //		List<String> list = IOUtils.readLines(inputStream, "utf8");
 //		String retstr = Joiner.on("\r\n").join(list);
 //		System.out.println(retstr); 
-		String host = "http://root:pdm#1921@101.132.148.11:22";
+		String host = FileUtils.readFileToString(new File("H:\\0db\\pre11.txt")); ;  ;
 		System.out.println("****************" + host);
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		// java.io.InputStreamReader继承了Reader类

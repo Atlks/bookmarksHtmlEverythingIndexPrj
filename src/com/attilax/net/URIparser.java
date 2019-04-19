@@ -3300,7 +3300,7 @@ this.input2=str;
 			//	String hostportString =aStrings2[1];
 				host =getHost( this.input);//.substring(atPos + 1, hostEnd);
 				// hostportString.split(":")[0];
-				// "http://root:pdm#1921@101.132.148.11:22";
+				 
 				int portEnd = input.indexOf("/", hostEnd + 1);
 				if (portEnd == -1)
 					portEnd = input.length();

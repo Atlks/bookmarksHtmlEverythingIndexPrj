@@ -23,7 +23,7 @@ public class urlParseDemo {
 	public static void main(String[] args) throws URISyntaxException, ParseException, IOException {
 		
 		//uri vs url diff ,is uri is Onlystr,And urlAnd  Include res op as open
-		String url = "   http://user1:ttredis$2018*124@101.132.148.11:63790/1?get=access_token";		
+		String url = "   http:/ /1?get=access_token";		
 		url=url.trim();
 		URI url2 = new URI(url);
 		System.out.println(url2.getQuery());	

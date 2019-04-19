@@ -1,11 +1,13 @@
 package aOPtool;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import com.attilax.util.ProcessUtil;
@@ -23,7 +25,7 @@ public class sqlBekScrpt {
 
 		System.out.println("start  wait to bek");
 		try {
-			bek();
+			bek_win();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -38,7 +40,7 @@ public class sqlBekScrpt {
 			System.out.println("start  wait to in sleep 2hr");
 			Thread.sleep(3600 * 1000 * 2);
 			try {
-				bek();
+				bek_win();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -57,7 +59,7 @@ public class sqlBekScrpt {
 	}
 
 	private static Process bekLinux() throws IOException {
-		String cmd = " mysqldump --set-charset=utf8 -hrm-uf625e3dst83ioo15to.mysql.rds.aliyuncs.com -utang123 -pttDb48_k  tt_formal --result-file=/dbbek/tt_formal{0}.sql";
+		String cmd = FileUtils.readFileToString(new File("/0db/prod_mysql_bekcmd_tmplt_linux.txt")); ;
 		cmd = MessageFormat.format(cmd, new SimpleDateFormat("yyyy-MM-dd.HHmmss").format(new java.util.Date()));
 		System.out.println(cmd);
 		Process process = Runtime.getRuntime().exec(cmd);
@@ -67,9 +69,10 @@ public class sqlBekScrpt {
 		return process;
 	}
 
-	private static Process bek() throws IOException {
-		String cmd = " \"C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysqldump.exe\"  "
-				+ "--set-charset=utf8 -hrm-uf625e3dst83ioo15to.mysql.rds.aliyuncs.com -utang123 -pttDb48_k  tt_formal --result-file=G:\\dbbek\\tt_formal{0}.sql";
+	private static Process bek_win() throws IOException {
+		String cmd =  FileUtils.readFileToString(new File("H:\\0db\\prod_mysql_bekcmd_tmplt.txt"));
+				
+				//--result-file=G:\\dbbek\\tt_formal{0}.sql";
 		cmd = MessageFormat.format(cmd, new SimpleDateFormat("yyyy-MM-dd.HHmmss").format(new java.util.Date()));
 		System.out.println(cmd);
 		Process process = Runtime.getRuntime().exec(cmd);

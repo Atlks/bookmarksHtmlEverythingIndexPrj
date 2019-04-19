@@ -23,23 +23,21 @@ import ch.ethz.ssh2.SCPClient;
 public class sshFileDownSvrs {
 
 
-	// java -cp /lib/*:/targetBookmark/classes aOPtool.sshFileDownSvrs 	// 101.132.148.11:22:root:pdm#1921 /tt/www/admin-tomcat9/webapps/admin.war.0402 /0downfileDir1/
-	// 101.132.148.11:22:root:pdm#1921 /0db_tmpTable/prod_token.txt g:/0downfile
-//    java -cp /lib/*:/targetBookmark/classes aOPtool.sshFileDownSvrs   http://101.132.148.11:22:root:pdm#1921/tt/www/admin-tomcat9/webapps/admin.war.0402 /0downfileDir1/
+	// java -cp /lib/*:/targetBookmark/classes aOPtool.sshFileDownSvrs  downfileDir1/
+	 
+//    java -cp /lib/*:/targetBookmark/classes aOPtool.sshFileDownSvrs   1/
 	public static void main(String[] args) throws Exception {
 		
 	
-
-		String cmdString = "http://root:pdm#1921@101.132.148.11:22/0db_tmpTable/prod_token.txt  g:/0downfileDir3/";
-	//	 cmdString = "http://root:pdm@101.132.148.11:22/0db_tmpTable/prod_token.txt  g:/0downfileDir3/ ";
-	//	cmdString = "101.132.148.11:22:root:pdm#1921  /tt/www/admin-tomcat9/webapps/admin.war.0402  g:/0downfileDir1/ ";
-	//	 args=StringUtils.splitByWholeSeparator(cmdString, " ",2);
+		String host = FileUtils.readFileToString(new File("H:\\0db\\pre11.txt")); ;  ;
+		String cmdString = host+"/0db_tmpTable/prod_token.txt  g:/0downfileDir3/";
+ 	//	 args=StringUtils.splitByWholeSeparator(cmdString, " ",2);
 	//	 StringUtils.split
 		System.out.println(JSON.toJSON(args));
 		System.out.println(timeUtilV2t33.Now_CST());
 		System.out.println("will sleep 7sec ...");
 	//	Thread.sleep(3000);
-		String url;// = "101.132.148.11:22:root:pdm#1921";
+		String url; 
 		url = args[0];
 		URIparser uri=new URIparser(args[0]);
 		String remoteFile = uri.getPath();
