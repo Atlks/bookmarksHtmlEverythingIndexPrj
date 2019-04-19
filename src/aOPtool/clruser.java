@@ -41,6 +41,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.attilax.mvc.MvcUtil;
 import com.attilax.net.HttpServletRequestImp;
+import com.attilax.net.OpaqueUri;
 import com.attilax.net.URIparser;
 import com.attilax.text.HeziUtil;
 import com.attilax.util.AliyunMessageUtil;
@@ -50,6 +51,8 @@ import com.attilax.util.velocityUtil;
 import com.beust.jcommander.internal.Lists;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
+import com.mysql.cj.conf.ConnectionUrlParser;
+import com.mysql.cj.conf.url.SingleConnectionUrl;
 
 import javassist.NotFoundException;
 import ognl.Ognl;
@@ -76,7 +79,9 @@ public class clruser {
 
  
 //Joiner.on("\r\n<br>\r\n")
-		MvcUtil.outputHtml(resp, JSON.toJSONString(list, true) );
+		String jsonString = JSON.toJSONString(list, true);
+		jsonString=jsonString.replaceAll("\n", "\r\n<br>\r\n");
+		MvcUtil.outputHtml(resp, jsonString );
 		return "thing";
 	}
 
@@ -92,7 +97,8 @@ public class clruser {
 		atiEx.statments=string;
 		 
 		for (String cmd : aStrings) {
-			 
+			 if(cmd.trim().length()==0)
+				 continue;
 			atiEx.addStackTraceElement(cmd, lineNum);
 			
 			args = StringUtils.splitByWholeSeparator(cmd, " ");
@@ -111,7 +117,7 @@ public class clruser {
 	static Map cur_outMap;
 	// statmentExec
 	synchronized public static void main(String[] args) throws Exception, IOException {
-		
+		String stat = args[0];
 		Properties p = new Properties();
 
 		String pathname = getCfgpath();
@@ -123,7 +129,8 @@ public class clruser {
 		outFile = clruser.getOutfile();
 		clruser clruser1 = new clruser();
 		clruser1.curEx=curEx;
-		cur_outMap = clruser1.statmentExec(args[0]);
+		
+		cur_outMap = clruser1.statmentExec(stat);
 
 		if (!closeEcho)
 			System.out.println(JSON.toJSONString(cur_outMap, true));
@@ -134,7 +141,7 @@ public class clruser {
 	public Map statmentExec(String stat)
 			throws FileNotFoundException, IOException, Exception, SQLException, MalformedURLException, ClientException {
 		
-		URIparser uri=new URIparser(stat);
+		OpaqueUri uri=new OpaqueUri(stat);
 		Map map_outMap = Maps.newLinkedHashMap();
 
 		String urlString = "jdbc:mysql://47.100.12.36:3306/tt_pre?userinfo=root:123456";
@@ -150,12 +157,12 @@ public class clruser {
 		map_outMap.put("statment语句", stat);
 		String envikeyString =uri.getHost();
 		String op =uri.getScheme();
-		String tel = uri.getUserInfo().split(":")[0];
+		String user_tel = uri.getUserInfo().split(":")[0];
 
 		String dburl = getDBurl(envikeyString);
 		clruser clruser1 = new clruser();
 		if (op.equals("查看")) {
-			DataSource dSource = getDatasource(dburl);
+			DataSource dSource =DBPoolC3p0Util. getDatasource(dburl);
 			String db = "a_user";
 			Map map = Maps.newLinkedHashMap();
 			map.put("查看", "select * from a_user where cell_phone='$tel'");
@@ -165,7 +172,7 @@ public class clruser {
 
 			VelocityContext context = new VelocityContext();
 
-			context.put("tel", tel);
+			context.put("tel", user_tel);
 			sqlString = velocityUtil.getTmpltCalcRzt(sqlString, context);
 			log.info(sqlString);
 			List list2 = query(sqlString, dSource);
@@ -174,14 +181,14 @@ public class clruser {
 			map_outMap.put("查看结果：", list2);
 		} else if (op.equals("获取密码")) {
 
-			clruser1.sendPwd(tel);
+			clruser1.sendPwd(user_tel);
 
 		} else if (op.equals("删除")) {
 
 			try {
 
 				clruser1.m_debugMap.put("statment语句", stat);
-				clruser1.checkPwd(tel,  uri.getUserInfo().split(":")[1]);
+				clruser1.checkPwd(user_tel,  uri.getUserInfo().split(":")[1]);
 			} catch (ArrayIndexOutOfBoundsException e) {
 				this.curEx.initCause(e);
 				this.curEx.backtrace=clruser1.m_debugMap;
@@ -189,14 +196,14 @@ public class clruser {
 				throw  new RuntimeException(JSON.toJSONString( this.curEx,true)) ;
 				 
 			} catch (NotFoundException e) { // no find redis tel key pwd
-				clruser1.sendPwd(tel);
+				clruser1.sendPwd(user_tel);
 				this.curEx.initCause(e);
 				this.curEx.backtrace=clruser1.m_debugMap;
 				this.curEx.detailMessage="";		 
 				throw  new RuntimeException(JSON.toJSONString( this.curEx,true)) ;
 			}
 
-			DataSource dSource = getDatasource(dburl);
+			DataSource dSource =DBPoolC3p0Util. getDatasource(dburl);
 			String db = "a_user";
 			Map map = Maps.newLinkedHashMap();
 			map.put("查看", "select * from a_user where cell_phone='$tel'");
@@ -206,7 +213,7 @@ public class clruser {
 
 			VelocityContext context = new VelocityContext();
 
-			context.put("tel", tel);
+			context.put("tel", user_tel);
 			sqlString = velocityUtil.getTmpltCalcRzt(sqlString, context);
 			log.info(sqlString);
 			QueryRunner qr = new QueryRunner(dSource);
@@ -270,9 +277,17 @@ public class clruser {
 
 	private static String getCfgpath() {
 
-		URL resource = clrusrTomcatStart.class.getResource("/aOPtool/db.propertis");
-		System.out.println(resource);
-		return resource.getPath().toString();
+//		URL resource = clrusrTomcatStart.class.getResource("/aOPtool/db.propertis");
+//		System.out.println(resource);
+		
+		String pathname = "H:\\gitWorkSpace\\bookmarksHtmlEverythingIndexPrj\\src\\aOPtool\\db.propertis";
+		if(new File(pathname).exists())
+		return pathname;
+		else if(new File("/0db/db.propertis").exists() )
+		{
+			return "/0db/db.propertis";
+		}
+		return "/0db/db.propertis";
 	}
 
 	public Map m_debugMap = Maps.newLinkedHashMap();
@@ -322,19 +337,7 @@ public class clruser {
 		return li;
 	}
 
-	private static DataSource getDatasource(String dburl) throws Exception {
 
-		URIparser URIparser1 = new URIparser(dburl);
-		java.util.List<NameValuePair> list = URIparser1.getQueryParams();
-		String url = URIparser1.getUrlPrepart();
-		NameValuePair nameValuePair = list.stream()
-				.filter(NameValuePair1 -> NameValuePair1.getName().equals("userinfo")).collect(Collectors.toList())
-				.get(0);
-		String u = nameValuePair.getValue().split(":")[0];
-		String p = nameValuePair.getValue().split(":")[1];
-		DataSource datasouce = DBPoolC3p0Util.getDatasouce("com.mysql.jdbc.Driver", url, u, p);
-		return datasouce;
-	}
 
 	private static String getDBurl(String envikeyString) throws FileNotFoundException, IOException {
 		Properties p = new Properties();

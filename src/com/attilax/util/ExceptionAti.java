@@ -8,7 +8,12 @@ import com.alibaba.fastjson.JSON;
 import com.beust.jcommander.internal.Lists;
 
 public class ExceptionAti extends RuntimeException {
-	
+	public Object Data;
+	public int HResult;
+	public Exception InnerException;
+	public String Message;
+	public String Source;
+	public String StackTrace;
 	public Object backtrace;
 	public Object getBacktrace() {
 		return backtrace;

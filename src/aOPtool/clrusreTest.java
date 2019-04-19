@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import com.alibaba.fastjson.JSON;
 import com.attilax.net.HttpServletRequestImp;
 import com.attilax.net.URIparser;
 import com.attilax.text.HeziUtil;
@@ -39,17 +40,28 @@ public class clrusreTest {
 	} 
 
 	public static void main(String[] args) throws IOException, Exception {
+	//	OpaqueUinput2ri
+		System.err.println("errrrmsg");
+//		
+//		String mysqlConnUrl = "jdbc:mysql://47.100.12.36:3306/tt_pre?user=root&password=123456&userinfo=root:123456";
+//		URI uriw=URI.create(mysqlConnUrl);
+//		boolean isop=uriw.isOpaque(); //true
+//		System.out.println(JSON.toJSONString(uriw));
+//		//schema="jdbc"
+// 	URIparser uri=URIparser.create("查看:18821766710@唐唐云学堂");
+// 		System.out.println(uri.isOpaque());
 		
 		String string = "唐唐云学堂 删除 18821766710 056060";
 		string = "唐唐云学堂 获取密码 18821766710";
 		string = "查看：//18821766710:056060@唐唐云学堂";
 	 	string = "查看：//18821766710:056060@唐唐云学堂; 删除://18821766710:056060@唐唐云学堂；查看：//18821766710:056060@唐唐云学堂";
-		string=string.trim();
+	 	string = "查看:18821766710@唐唐云学堂； 删除:18821766710:056060@唐唐云学堂；查看:18821766710@唐唐云学堂； ";
+	 	string=string.trim();
 		string = HeziUtil.replaceHeziComma(string);
 		//URI uri=new URI(string);
 	//	URIparser urIparser=new URIparser(string);
 	//	string = "唐唐云学堂 查看 18821766710;唐唐云学堂 删除 1882176671086 997672；唐唐云学堂 查看 18821766710 ";
-	clruser.	statmentMultiExec(string);
+   	clruser.	statmentMultiExec(string);
 
 		
 

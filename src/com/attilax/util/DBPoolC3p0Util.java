@@ -5,13 +5,19 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
+
+import org.apache.http.NameValuePair;
 
 import java.beans.PropertyVetoException;
 import java.io.PrintWriter;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource; 
+import com.attilax.net.URIparser;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.mysql.cj.conf.ConnectionUrlParser;
+import com.mysql.cj.conf.url.SingleConnectionUrl; 
 public class DBPoolC3p0Util implements DataSource{       
    private static DBPoolC3p0Util dbPool;       
    private ComboPooledDataSource dataSource;     
@@ -36,6 +42,25 @@ public class DBPoolC3p0Util implements DataSource{
            }       
    }       
  
+   
+   public static DataSource getDatasource(String mysqlConnUrl) throws Exception {
+		SingleConnectionUrl ConnectionUrl2=new SingleConnectionUrl(ConnectionUrlParser.parseConnectionString(mysqlConnUrl), null);
+
+	//	URIparser URIparser1 = new URIparser(dburl);
+//		java.util.List<NameValuePair> list = URIparser1.getQueryParams();
+ //		String url = URIparser1.getUrlPrepart();
+//		NameValuePair nameValuePair = list.stream()
+//				.filter(NameValuePair1 -> NameValuePair1.getName().equals("userinfo")).collect(Collectors.toList())
+//				.get(0);
+		
+		String url = ConnectionUrl2.getDatabaseUrl();
+		String u = ConnectionUrl2.getDefaultUser();
+		String p = ConnectionUrl2.getDefaultPassword();
+		DataSource datasouce = DBPoolC3p0Util.getDatasouce("com.mysql.jdbc.Driver", url, u, p);
+		return datasouce;
+	}
+	
+	
    public   static  DataSource getDatasouce(String driver, String url, String u, String p) throws PropertyVetoException{     
 	   ComboPooledDataSource   dataSource = new ComboPooledDataSource();       
        dataSource.setUser(u);       

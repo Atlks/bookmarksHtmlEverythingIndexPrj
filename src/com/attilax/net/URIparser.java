@@ -575,7 +575,7 @@ public class URIparser implements Comparable<URIparser>, Serializable {
 
 	// Server-based authority: [<userInfo>@]<host>[:<port>]
 	private transient String userInfo;
-	private transient String host; // null ==> registry-based
+	protected transient String host; // null ==> registry-based
 	private transient int port = -1; // -1 ==> undefined
 
 	// Remaining components of hierarchical URIs
@@ -603,9 +603,13 @@ public class URIparser implements Comparable<URIparser>, Serializable {
 
 	private String uri;
 
+	protected String input;
+
+	protected String input2;
+
 	// -- Constructors and factories --
 
-	private URIparser() {
+	public URIparser() {
 	} // Used internally
 
 	/**
@@ -692,9 +696,11 @@ public class URIparser implements Comparable<URIparser>, Serializable {
 	 *                              augmented by the above deviations
 	 */
 	public URIparser(String str) throws URISyntaxException {
-
+this.input=str;
+this.input2=str;
 		this.uri = str;
-		new Parser(str).parse(false);
+		  parser = new Parser(str);
+		parser.parse(false);
 
 		int schamaPos = str.indexOf("//");
 		try {
@@ -710,7 +716,7 @@ public class URIparser implements Comparable<URIparser>, Serializable {
 		}
 
 	}
-
+	public	Parser parser ;
 	/**
 	 * Constructs a hierarchical URI from the given components.
 	 *
@@ -3082,7 +3088,7 @@ public class URIparser implements Comparable<URIparser>, Serializable {
 	// following internal class. This saves always having to pass the input
 	// string as an argument to each internal scan/parse method.
 
-	private class Parser {
+	class Parser {
 
 		private String input; // URI input string
 		private boolean requireServerAuthority = false;
@@ -3308,6 +3314,12 @@ public class URIparser implements Comparable<URIparser>, Serializable {
 
 		private String getScheme(String input2) {
 			int syegeoStart = input.indexOf("://");
+			if(syegeoStart==-1) //is OpaqueUri 
+			{
+				int mohaoPos= input.indexOf(":");
+				return input2.substring(0,mohaoPos);
+			}
+			else
 			return input2.substring(0,syegeoStart);
 		}
 
@@ -3333,7 +3345,7 @@ public class URIparser implements Comparable<URIparser>, Serializable {
 			}
 		}
 
-		private String getHost(String input2) {
+	public	String getHost(String input2) {
 			if(hasUserinfo(input2)) {
 				int atPos = input.indexOf("@");
 				int portSplitorPos = input.indexOf(":", atPos + 1);
@@ -3351,7 +3363,7 @@ public class URIparser implements Comparable<URIparser>, Serializable {
 			
 		}
 
-		private boolean hasUserinfo(String input2) {
+	public boolean hasUserinfo(String input2) {
 			int atPos = input.indexOf("@");
 			if(atPos==-1)
 			return false;

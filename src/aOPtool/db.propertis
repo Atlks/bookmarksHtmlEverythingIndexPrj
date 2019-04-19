@@ -1,4 +1,4 @@
-唐唐云学堂=jdbc:mysql://rm-uf625e3dst83ioo15to.mysql.rds.aliyuncs.com:3306/tt_formal?userinfo=tang123:ttDb48_k
-唐唐语文=jdbc:mysql://47.100.12.36:3306/tt_pre?userinfo=root:123456
+唐唐云学堂=jdbc:mysql://rm-uf625e3dst83ioo15to.mysql.rds.aliyuncs.com:3306/tt_formal?user=tang123&password=ttDb48_k
+唐唐语文=jdbc:mysql://47.100.12.36:3306/tt_pre?user=root&password=123456
 redis= http://root:ttredis2018124@47.100.12.36:63790/2
  
