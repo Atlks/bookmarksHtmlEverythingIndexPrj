@@ -1,4 +1,5 @@
 package aOPtool;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -6,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
 import com.attilax.fileTrans.AuthEx;
@@ -31,7 +33,7 @@ public class prod_adminPubScrpt2publishtool3 {
 				
 	//	http://101.132.148.11:9000/admin 
   
-		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg("http://root:tA48.k@139.224.11.93:22");
+		SShFileUtilV3t33 c = new SShFileUtilV3t33().setcfg(FileUtils.readFileToString(new File("H:\\0db\\prod93.txt")));
 		Connection connection = c.conn();
 		logger.info(" conned ok");
 		//Session session = connection.openSession();

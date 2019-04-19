@@ -43,7 +43,7 @@ public class clrusreTest {
 	//	OpaqueUinput2ri
 		System.err.println("errrrmsg");
 //		
-//		String mysqlConnUrl = "jdbc:mysql://47.100.12.36:3306/tt_pre?user=root&password=123456&userinfo=root:123456";
+//	 
 //		URI uriw=URI.create(mysqlConnUrl);
 //		boolean isop=uriw.isOpaque(); //true
 //		System.out.println(JSON.toJSONString(uriw));

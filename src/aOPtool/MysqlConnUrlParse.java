@@ -16,7 +16,7 @@ public class MysqlConnUrlParse {
 //		{scheme: "jdbc:mysql:", 
 //			authority: "47.100.12.36:3306", 
 //			path: "tt_pre", 
-//			query: "user=root&password=123456&userinfo=root:123456", 
+//			query: "user=root&passw ", 
 //			parsedHosts: null, parsedProperties: null}
 
 		

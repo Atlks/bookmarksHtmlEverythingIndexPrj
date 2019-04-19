@@ -147,8 +147,7 @@ public class clruser {
 		OpaqueUri uri = new OpaqueUri(stat);
 		Map map_outMap = Maps.newLinkedHashMap();
 
-		String urlString = "jdbc:mysql://47.100.12.36:3306/tt_pre?userinfo=root:123456";
-		urlString = "mysql://47.100.12.36:3306/tt_pre?userinfo=root:123456";
+	 
 		// URI uri=new URI(urlString);
 
 		// 获取键值对NameValuePair
@@ -295,7 +294,7 @@ curEx.data.put("cur_statment语句", stat);
 //		URL resource = clrusrTomcatStart.class.getResource("/aOPtool/db.propertis");
 //		System.out.println(resource);
 
-		String pathname = "H:\\gitWorkSpace\\bookmarksHtmlEverythingIndexPrj\\src\\aOPtool\\db.propertis";
+		String pathname = "H:\\0db\\db.propertis";
 		if (new File(pathname).exists())
 			return pathname;
 		else if (new File("/0db/db.propertis").exists()) {

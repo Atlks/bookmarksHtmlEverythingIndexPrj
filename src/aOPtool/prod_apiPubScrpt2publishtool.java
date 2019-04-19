@@ -1,5 +1,6 @@
 package aOPtool;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 
 import com.attilax.fileTrans.AuthEx;
@@ -31,7 +33,8 @@ public class prod_apiPubScrpt2publishtool {
 
 		// http://101.132.148.11:9000/admin
 //   用户名：root 密码：
-		String url = "http://root:tA48.k@139.224.11.93:22";
+		String url = (FileUtils.readFileToString(new File("H:\\0db\\prod93.txt")));
+		
 		System.out.println(url);
 		
 		 //第一步：注册热键，第一个参数表示该热键的标识，第二个参数表示组合键，如果没有则为0，第三个参数为定义的主要热键
