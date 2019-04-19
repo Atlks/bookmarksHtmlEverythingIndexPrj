@@ -60,76 +60,79 @@ import ognl.OgnlException;
 import redis.clients.jedis.Jedis;
 import resume.resumeGrepper;
 
+@SuppressWarnings("all")
 public class clruser {
 	final static Logger log = Logger.getLogger(clruser.class);
 	static String outFile;
 	public static boolean closeEcho = false;
-	public static ExceptionAti curEx;
-	
-	
-	
+	public   ExceptionAti curEx=new ExceptionAti();
 
 	// http://localhost:888/api416?param=唐唐语文 删除 18821766710 328562
 	@Path("/api416")
 	public String api416(HttpServletRequest req, HttpServletResponse resp) throws IOException, Exception {
 		String paramString = req.getParameter("param");
-		paramString=paramString.trim();
+		paramString = paramString.trim();
 		paramString = HeziUtil.replaceHeziComma(paramString);
-		List list =  new clruser().statmentMultiExec(paramString);
+		List list = new clruser().statmentMultiExec(paramString);
 
- 
 //Joiner.on("\r\n<br>\r\n")
 		String jsonString = JSON.toJSONString(list, true);
-		jsonString=jsonString.replaceAll("\n", "\r\n<br>\r\n");
-		MvcUtil.outputHtml(resp, jsonString );
+		jsonString = jsonString.replaceAll("\n", "\r\n<br>\r\n");
+		MvcUtil.outputHtml(resp, jsonString);
 		return "thing";
 	}
 
-	public static List statmentMultiExec(String string) throws Exception, IOException {
-		string=string.trim();
-		String[] args;
-		List list = Lists.newLinkedList();
-	//	string = "唐唐云学堂 删除 1882176671094 056060";
+	public List statmentMultiExec(String string) throws Exception, IOException {
+		string = string.trim();
+
+		List list_outRzzts = Lists.newLinkedList();
+		List list_partSuccess = Lists.newLinkedList();
+		// string = "唐唐云学堂 删除 1882176671094 056060";
 		string = HeziUtil.replaceHeziComma(string);
 		String[] aStrings = string.split(";");
 		int lineNum = 1;
 		ExceptionAti atiEx = new ExceptionAti();
-		atiEx.statments=string;
-		 
+		 this.curEx = atiEx;
+	 
+		atiEx.data.put("statments", string) ;
+
 		for (String cmd : aStrings) {
-			 if(cmd.trim().length()==0)
-				 continue;
+			if (cmd.trim().length() == 0)
+				continue;
 			atiEx.addStackTraceElement(cmd, lineNum);
+
+               
+//			clruser.closeEcho = true;
+			Map outputTztMap = statmentExec(cmd.trim());
+		//	System.out.println(FileUtils.readFileToString(new File(clruser.outFile)));
 			
-			args = StringUtils.splitByWholeSeparator(cmd, " ");
-			clruser.curEx=atiEx;
-			clruser.closeEcho = true;
-			clruser.main(args);
-			System.out.println(FileUtils.readFileToString(new File(clruser.outFile)));
+			outputTztMap.put("linenum", lineNum);		
+			list_outRzzts.add(outputTztMap);
+			
+			// for debug
+			Map outputTztMap4debugMap=Maps.newLinkedHashMap();
+			outputTztMap4debugMap.putAll(outputTztMap);;
+			outputTztMap4debugMap.put("StackTraceElement", new StackTraceElement("", cmd, "", lineNum));
+			list_partSuccess.add(outputTztMap4debugMap);
+			atiEx.data.put("sucessOpRzt", list_partSuccess) ;
+			
 			lineNum++;
-			
-			Map newMap=Maps.newConcurrentMap();
-			newMap.putAll(cur_outMap);
-			list.add(newMap);
 		}
-		return list;
+	
+		return list_outRzzts;
 	}
+
 	static Map cur_outMap;
+
 	// statmentExec
 	synchronized public static void main(String[] args) throws Exception, IOException {
 		String stat = args[0];
-		Properties p = new Properties();
-
-		String pathname = getCfgpath();
-		p.load(new FileReader(new File(pathname)));
-
-		String rediscfg = p.getProperty("redis");
 
 		System.out.println(clrusrTomcatStart.class.getResource("/aOPtool/db.propertis").toString());
 		outFile = clruser.getOutfile();
 		clruser clruser1 = new clruser();
-		clruser1.curEx=curEx;
-		
+	//	clruser1.curEx = curEx;
+
 		cur_outMap = clruser1.statmentExec(stat);
 
 		if (!closeEcho)
@@ -140,8 +143,8 @@ public class clruser {
 	@SuppressWarnings("all")
 	public Map statmentExec(String stat)
 			throws FileNotFoundException, IOException, Exception, SQLException, MalformedURLException, ClientException {
-		
-		OpaqueUri uri=new OpaqueUri(stat);
+
+		OpaqueUri uri = new OpaqueUri(stat);
 		Map map_outMap = Maps.newLinkedHashMap();
 
 		String urlString = "jdbc:mysql://47.100.12.36:3306/tt_pre?userinfo=root:123456";
@@ -153,19 +156,19 @@ public class clruser {
 		// java.util.List<NameValuePair> list= new
 		// URIparser(urlString).getQueryParams();
 		// System.out.println(list);
-
+curEx.data.put("cur_statment语句", stat);
 		map_outMap.put("statment语句", stat);
-		String envikeyString =uri.getHost();
-		String op =uri.getScheme();
+		String envikeyString = uri.getHost();
+		String op = uri.getScheme();
 		String user_tel = uri.getUserInfo().split(":")[0];
 
 		String dburl = getDBurl(envikeyString);
-		clruser clruser1 = new clruser();
-		if (op.equals("查看")) {
-			DataSource dSource =DBPoolC3p0Util. getDatasource(dburl);
+	//	clruser clruser1 = new clruser();
+		if (op.equals("查询")) {
+			DataSource dSource = DBPoolC3p0Util.getDatasource(dburl);
 			String db = "a_user";
 			Map map = Maps.newLinkedHashMap();
-			map.put("查看", "select * from a_user where cell_phone='$tel'");
+			map.put("查询", "select * from a_user where cell_phone='$tel'");
 			map.put("删除", "delete  from a_user where cell_phone='$tel'");
 
 			String sqlString = (String) map.get(op);
@@ -178,35 +181,37 @@ public class clruser {
 			List list2 = query(sqlString, dSource);
 			// System.out.println(list2);
 			log.info(list2);
-			map_outMap.put("查看结果：", list2);
-		} else if (op.equals("获取密码")) {
+			map_outMap.put("查询结果：", list2);
+		} else if (op.equals("查询密码")) {
 
-			clruser1.sendPwd(user_tel);
+			sendPwd(user_tel, map_outMap);
 
 		} else if (op.equals("删除")) {
 
 			try {
 
-				clruser1.m_debugMap.put("statment语句", stat);
-				clruser1.checkPwd(user_tel,  uri.getUserInfo().split(":")[1]);
+				curEx.data.put("statment语句", stat);
+				checkPwd(user_tel, uri.getUserInfo().split(":")[1]);
 			} catch (ArrayIndexOutOfBoundsException e) {
 				this.curEx.initCause(e);
-				this.curEx.backtrace=clruser1.m_debugMap;
-				this.curEx.detailMessage="需要提供密码";		 
-				throw  new RuntimeException(JSON.toJSONString( this.curEx,true)) ;
-				 
-			} catch (NotFoundException e) { // no find redis tel key pwd
-				clruser1.sendPwd(user_tel);
-				this.curEx.initCause(e);
-				this.curEx.backtrace=clruser1.m_debugMap;
-				this.curEx.detailMessage="";		 
-				throw  new RuntimeException(JSON.toJSONString( this.curEx,true)) ;
+		 	
+				this.curEx.detailMessage = "需要提供密码";
+				throw new RuntimeException(JSON.toJSONString(this.curEx, true));
+
 			}
 
-			DataSource dSource =DBPoolC3p0Util. getDatasource(dburl);
+//			catch (NotFoundException e) { // no find redis tel key pwd
+//				clruser1.sendPwd(user_tel,map_outMap);
+//				this.curEx.initCause(e);
+ 
+//				this.curEx.detailMessage="";		 
+//				throw  new RuntimeException(JSON.toJSONString( this.curEx,true)) ;
+//			}
+
+			DataSource dSource = DBPoolC3p0Util.getDatasource(dburl);
 			String db = "a_user";
 			Map map = Maps.newLinkedHashMap();
-			map.put("查看", "select * from a_user where cell_phone='$tel'");
+			map.put("查询", "select * from a_user where cell_phone='$tel'");
 			map.put("删除", "delete  from a_user where cell_phone='$tel'");
 
 			String sqlString = (String) map.get(op);
@@ -224,12 +229,20 @@ public class clruser {
 			System.out.println(map2);
 			log.info(map2);
 			map_outMap.put("删除数量", r);
+		} else {
+		//	m_debugMap.put("statment语句", stat);
+ 
+		//	curEx.data=m_debugMap;
+			this.curEx.detailMessage = "不能识别的操作";
+			// this.curEx.
+			throw new RuntimeException(JSON.toJSONString(this.curEx, true),this.curEx);
 		}
 		return map_outMap;
 		// FileUtils.write(new File(outFile), JSON.toJSONString(map_outMap, true));
 	}
 
-	private void sendPwd(String tel) throws IOException, FileNotFoundException, MalformedURLException, ClientException {
+	private void sendPwd(String tel, Map map_outMap)
+			throws IOException, FileNotFoundException, MalformedURLException, ClientException {
 		Properties p = new Properties();
 
 		String pathname = getCfgpath();
@@ -244,7 +257,7 @@ public class clruser {
 		jedis.auth(url.getUserInfo().split(":")[1]);
 		jedis.select(Integer.parseInt(url.getPath().substring(1)) - 1); // select db
 
-		// 查看服务是否运行
+		// 查询服务是否运行
 		System.out.println("服务正在运行: " + jedis.ping());
 
 		String phoneNumber = tel;
@@ -262,7 +275,9 @@ public class clruser {
 		System.out.println(JSON.toJSON(sendSmsResponse));
 		log.info(sendSmsResponse);
 		jedis.set(tel, randomNum);
-		this.m_debugMap.put("sendSmsRzt", sendSmsResponse);
+	//	this.m_debugMap.put("sendSmsRzt", sendSmsResponse);
+		
+		map_outMap.put("执行结果", sendSmsResponse);
 	}
 
 	static String getOutfile() throws IOException {
@@ -279,18 +294,17 @@ public class clruser {
 
 //		URL resource = clrusrTomcatStart.class.getResource("/aOPtool/db.propertis");
 //		System.out.println(resource);
-		
+
 		String pathname = "H:\\gitWorkSpace\\bookmarksHtmlEverythingIndexPrj\\src\\aOPtool\\db.propertis";
-		if(new File(pathname).exists())
-		return pathname;
-		else if(new File("/0db/db.propertis").exists() )
-		{
+		if (new File(pathname).exists())
+			return pathname;
+		else if (new File("/0db/db.propertis").exists()) {
 			return "/0db/db.propertis";
 		}
 		return "/0db/db.propertis";
 	}
 
-	public Map m_debugMap = Maps.newLinkedHashMap();
+	//public Map m_debugMap = Maps.newLinkedHashMap();
 
 	private void checkPwd(String tel, String pwd) throws FileNotFoundException, IOException, NotFoundException {
 		Properties p = new Properties();
@@ -307,23 +321,27 @@ public class clruser {
 		jedis.auth(url.getUserInfo().split(":")[1]);
 		jedis.select(Integer.parseInt(url.getPath().substring(1)) - 1); // select db
 
-		// 查看服务是否运行
+		// 查询服务是否运行
 		System.out.println("服务正在运行: " + jedis.ping());
 		if (jedis.get(tel) == null) {
-			m_debugMap.put("msg", "  没有找到密码,已经重新发送密码验证码，请等待查收 ");
+		//	m_debugMap.put("msg", "  没有找到密码,"); // 已经重新发送密码验证码，请等待查收
 
-			throw new NotFoundException(JSON.toJSONString(m_debugMap));
+		//	throw new RuntimeException(JSON.toJSONString(m_debugMap));
+		//	curEx.data=m_debugMap;
+			this.curEx.detailMessage = "没有找到密码";
+			throw new RuntimeException(JSON.toJSONString(this.curEx, true), this.curEx);
 
 		}
 
 		if (!jedis.get(tel).equals(pwd)) {
 
-		//	m_debugMap.put("msg", " 密码错误 ");
-		//	this.curEx.initCause(e);
-			this.curEx.backtrace=m_debugMap;
-			this.curEx.detailMessage="密码错误";		 
-			throw  new RuntimeException(JSON.toJSONString( this.curEx,true)) ;
+			// m_debugMap.put("msg", " 密码错误 ");
+			// this.curEx.initCause(e);
 		 
+		 
+			this.curEx.detailMessage = "密码错误";
+			throw new RuntimeException(JSON.toJSONString(this.curEx, true), this.curEx);
+
 		}
 
 	}
@@ -336,8 +354,6 @@ public class clruser {
 		System.out.println(li);
 		return li;
 	}
-
-
 
 	private static String getDBurl(String envikeyString) throws FileNotFoundException, IOException {
 		Properties p = new Properties();

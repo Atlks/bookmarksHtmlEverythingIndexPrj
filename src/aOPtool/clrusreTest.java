@@ -55,15 +55,18 @@ public class clrusreTest {
 		string = "唐唐云学堂 获取密码 18821766710";
 		string = "查看：//18821766710:056060@唐唐云学堂";
 	 	string = "查看：//18821766710:056060@唐唐云学堂; 删除://18821766710:056060@唐唐云学堂；查看：//18821766710:056060@唐唐云学堂";
-	 	string = "查看:18821766710@唐唐云学堂； 删除:18821766710:056060@唐唐云学堂；查看:18821766710@唐唐云学堂； ";
+	 	string = "查询:18821766710@唐唐云学堂； 删除:18821766710:660466@唐唐云学堂；查询:18821766710@唐唐云学堂； ";
+//	  string = "查询密码：18821766710@唐唐云学堂  ";
+//	 	string = "查询:18821766710@唐唐云学堂；";
+//	 	string = " 删除:18821766710:660466@唐唐云学堂；";
 	 	string=string.trim();
 		string = HeziUtil.replaceHeziComma(string);
 		//URI uri=new URI(string);
 	//	URIparser urIparser=new URIparser(string);
 	//	string = "唐唐云学堂 查看 18821766710;唐唐云学堂 删除 1882176671086 997672；唐唐云学堂 查看 18821766710 ";
-   	clruser.	statmentMultiExec(string);
+ List list=  new clruser().	statmentMultiExec(string);
 
-		
+		System.out.println(JSON.toJSONString(list,true));
 
 	}
 
