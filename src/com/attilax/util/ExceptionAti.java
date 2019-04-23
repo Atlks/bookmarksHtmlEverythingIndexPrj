@@ -10,7 +10,17 @@ import com.beust.jcommander.internal.Lists;
 import com.google.common.collect.Maps;
 
 public class ExceptionAti extends RuntimeException {
+	public String name_type_exname;
 	public Map data=Maps.newConcurrentMap();;
+	public int lineNumber;
+	public int getLineNumber() {
+		return lineNumber;
+	}
+
+	public void setLineNumber(int lineNumber) {
+		this.lineNumber = lineNumber;
+	}
+
 	public int HResult;
 	 
 
