@@ -1483,6 +1483,16 @@ this.input2=str;
 			decodedUserInfo = decode(userInfo);
 		return decodedUserInfo;
 	}
+	
+	
+	public String getUser() {
+		return getUserInfo().split(":")[0];
+	}
+
+	public String getPwd() {
+		 
+		return getUserInfo().split(":")[1];
+	}
 
 	/**
 	 * Returns the host component of this URI.

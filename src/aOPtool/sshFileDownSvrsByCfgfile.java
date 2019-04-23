@@ -27,17 +27,31 @@ public class sshFileDownSvrsByCfgfile {
 	// java -cp /lib/*:/targetBookmark/classes aOPtool.sshFileDownSvrs //
  	public static void main(String[] args) throws Exception {
 		// root:pdm#1921
-		String pwdfileString="${g:/11pwd.txt}";
-		String cmdString = "http://${g:/11pwd.txt}@101.132.148.11:22/0db_tmpTable/prod_token.txt  g:/0downfileDir3/";
-		cmdString=CfgUtil.parse(cmdString);
-				
-		String file = args[0];
-		String urlString = FileUtils.readFileToString(new File(file));
-		urlString = urlString + args[1];
-		String[] argsx = StringUtils.splitByWholeSeparator(urlString + " " + args[2], " ", 2);
-
+		 
+ 		String remtFile = "/tt/www/redis5/redis.conf";
+ 		 remtFile = "/var/opt/gitlab/redis/redis.conf";
+ 		 remtFile = "/usr/lib/redis.conf";
+ 		
+ 		
+		String path=FileUtils.readFileToString(new File("H:\\0db\\dev36svr.txt")).trim()+remtFile;
+		String savedir = "   g:/0downfileDir36svr/usrLib";
+		String cmdString =""+ path+"  "+savedir;
+		
+		//cmdString=CfgUtil.parse(cmdString);
+		System.out.println(cmdString);
+		
+		
+//		String file = args[0];
+//		String urlString = FileUtils.readFileToString(new File(file));
+//		urlString = urlString + args[1];
+//		String[] argsx = StringUtils.splitByWholeSeparator(urlString + " " + args[2], " ", 2);
+		String[] argsx= StringUtils.splitByWholeSeparator(cmdString," ");
 		sshFileDownSvrs.main(argsx);
 
+		
+		String localfileString=savedir.trim()+"/"+FilenameUtils.getName(remtFile);
+		System.out.println(localfileString);
+		System.out.println(FileUtils.readFileToString(new File(localfileString)));
 		// t(args);
 	}
 

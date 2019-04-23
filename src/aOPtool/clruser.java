@@ -11,10 +11,14 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +37,7 @@ import org.apache.http.client.utils.URIUtils;
 import org.apache.log4j.Logger;
 import org.apache.tomcat.util.buf.UriUtil;
 import org.apache.tomcat.util.http.RequestUtil;
+import org.apache.tools.ant.types.FlexInteger;
 import org.apache.velocity.VelocityContext;
 import org.junit.Test;
 
@@ -182,11 +187,11 @@ curEx.data.put("cur_statment语句", stat);
 			log.info(list2);
 			map_outMap.put("查询结果：", list2);
 		} else if (op.equals("查询密码")) {
-
+            checkWhiteList(user_tel);
 			sendPwd(user_tel, map_outMap);
 
 		} else if (op.equals("删除")) {
-
+			  checkWhiteList(user_tel);
 			try {
 
 				curEx.data.put("statment语句", stat);
@@ -238,6 +243,36 @@ curEx.data.put("cur_statment语句", stat);
 		}
 		return map_outMap;
 		// FileUtils.write(new File(outFile), JSON.toJSONString(map_outMap, true));
+	}
+
+	private void checkWhiteList(String user_tel) throws IOException {
+		File whitelistFile =getTelWhitelistFile();
+		 String tString=FileUtils.readFileToString(whitelistFile);
+		 String[] aStrings=tString.split(",");
+		 List list=Arrays.asList(aStrings);
+		// list.addAll(aStrings);
+		 Set set= (Set) list.stream().map(new Function<String, String>() {
+
+			@Override
+			public String apply(String t) {
+				// TODO Auto-generated method stub
+				return t.trim()+"";
+			}
+		}).collect(Collectors.toSet());
+		 if(!set.contains(user_tel))
+		 {
+				this.curEx.detailMessage = "电话不在白名单里面"+user_tel;
+				throw new RuntimeException(JSON.toJSONString(this.curEx, true), this.curEx);
+		 }
+			 
+		
+	}
+
+	private File getTelWhitelistFile() {
+		File file = new File("H:\\0db\\clrusr_whitelist.txt");
+		if(!file.exists())
+			 file = new File("/0db/clrusr_whitelist.txt");
+		return file;
 	}
 
 	private void sendPwd(String tel, Map map_outMap)
