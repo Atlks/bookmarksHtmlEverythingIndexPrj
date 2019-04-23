@@ -14,7 +14,8 @@ import java.util.function.Consumer;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
 import com.attilax.data.RedisUtil;
@@ -43,9 +44,9 @@ public class redisImport {
 		
 		
 		//----------------aliyun redis
-		String urlString = FileUtils.readFileToString(new File(pathname));
-		importDAtaDir = "H:\\0db\\redisExportDir\\11svr";		
-			urlString= "http://u:p@localhost:1314/2";
+		String urlString ;//= FileUtils.readFileToString(new File(pathname));
+		importDAtaDir = "d:\\0db\\redisExportDir\\11svr";		
+			urlString= "http://u:p@localhost:1314/1";
 			
 			
 			
@@ -180,7 +181,14 @@ public class redisImport {
 			    String k=(String) object.get("key");
 			    String valType=(String) object.get("valType");
 			    Object v=RedisUtil. toType(valType,object.get("val"));
-				RedisUtil.set(jedis, k, v);
+			    
+			  //  jedis.get("kxxx")==null
+			    	  if(jedis.get(k)==null)    //has data
+			    			RedisUtil.set(jedis, k, v);
+			    		  
+				 
+			  
+				
 			
 			//	curDebugMap_traceMap.put("f_txt", readFileToString);
 				logger.info(JSON.toJSONString(curDebugMap_traceMap, true));

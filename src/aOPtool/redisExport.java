@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
 import com.attilax.data.RedisUtil;
@@ -29,11 +29,12 @@ public class redisExport {
 
 	@Test
 	public void testMain() throws Exception {
-		String pathname = "h:/0db/redis_11url.txt";
+	//	String pathname = "d:/0db/redis_11url.txt";
 	//	pathname = "h:/0db/redis_36url.txt";
-		String urlString = FileUtils.readFileToString(new File(pathname));
+	//	String urlString = FileUtils.readFileToString(new File(pathname));
+		String	urlString="http://u:p@localhost:1314/2";
 		System.out.println(urlString);
-		main(new String[] { urlString, "h:/0db/redisExportDir/11svr" });
+		main(new String[] { urlString, "d:/0db/redisExportDir/11svr" });
 	}
 
 	static Map curDebugMap = Maps.newLinkedHashMap();

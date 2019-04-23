@@ -28,7 +28,7 @@ public class RedisSShTunnel {
     	 
     	 
         //跳板机（图中的serverA），需要输入用户名、密码
-         String jumpUrl=FileUtils.readFileToString(new File("H:\\0db\\pre11.txt"));
+         String jumpUrl=FileUtils.readFileToString(new File("d:\\0db\\pre11.txt"));
          URIparser Jmpr_urIparser=new URIparser(jumpUrl);
         
       
@@ -36,8 +36,9 @@ public class RedisSShTunnel {
         
         // 目标服务器（图中的serverB）
  	String	rmtRedis="http://{0}@r-uf6o2jdhb4bqojtwro.redis.rds.aliyuncs.com:6379/2";
- 		rmtRedis=MessageFormat.format(rmtRedis, FileUtils.readFileToString(new File("h:/0db/redis_aliyun.txt")));
- 		  URIparser urI_rmtRedis=new URIparser(rmtRedis);
+ 	//	rmtRedis=MessageFormat.format(rmtRedis, FileUtils.readFileToString(new File("h:/0db/redis_aliyun.txt")));
+ 	rmtRedis=MessageFormat.format(rmtRedis, "u:p");	
+ 	URIparser urI_rmtRedis=new URIparser(rmtRedis);
         String tunnelRemoteHost = urI_rmtRedis.getHost();
         int tunnelRemotePort = urI_rmtRedis.getPort(); //目标服务器服务访问的端口
         
