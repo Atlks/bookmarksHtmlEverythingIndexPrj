@@ -1,5 +1,7 @@
 package com.attilax.data;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -90,6 +92,19 @@ public class RedisUtil {
 			set2.add(object);
 		}
 		return set2;
+	}
+	
+	
+	public static Jedis getJedisObj(String string) throws URISyntaxException {
+		
+		URI url = new URI(string);
+		Jedis jedis = new Jedis(url.getHost(),
+
+				url.getPort());
+		// jedis.
+		jedis.auth(url.getUserInfo().split(":")[1]);
+		jedis.select(Integer.parseInt(url.getPath().substring(1)) - 1); // select db
+		return jedis;
 	}
 
 }
