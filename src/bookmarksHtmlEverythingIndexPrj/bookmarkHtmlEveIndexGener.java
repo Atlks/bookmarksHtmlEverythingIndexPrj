@@ -18,10 +18,19 @@ public class bookmarkHtmlEveIndexGener {
 	public static void main(String[] args) throws IOException {
 
 		String htmlEncode = "utf8";
-		Document doc = Jsoup.parse(new File("C:\\Users\\zhoufeiyue\\Documents\\bookmarks_2019_3_9.html"), htmlEncode,
-				"http://baseuri.com/");
-		String qqBrowerBookmarkEverythinIndexDir = "g:\\qqBrowerBookmarkEveryIndex";
+		String bkmktFile = "D:\\0gif sexy\\bookmarks_2019_4_24.html";
+		
+		String qqBrowerBookmarkEverythinIndexDir = "d:\\recy515\\qqBrowerBookmarkEveryIndex2019_4_24";
+		
+		
+		bkmktFile="C:\\Users\\Administrator\\Documents\\收藏20190520-171607.html";
+		 qqBrowerBookmarkEverythinIndexDir = "d:\\recy515\\360BroBookmarkEveryIndex20190520";
 
+		
+		
+		Document doc = Jsoup.parse(new File(bkmktFile), htmlEncode,
+				"http://baseuri.com/");
+		
 		// Element tab_elmt=doc.getElementById(tableId);
 String fString="https%3A%2F%2Fv%2Ehtml5%2Eqq%2Ecom%2Fnode%2Fplayer%3Fvid=34446145&ch";
 		String pathname =fString+ "=001500&extinfo=bizId%3D5%26ch%3D003801%26iRunTime%3D25%26iTagId%3D156%26modid%3D17%26polid%3D1%26qbid%3D1844382d1f06c271%26sPageUrl%3D%26src%3D65%26type%3D15%26vid%3D34446145&topicid=156&sch=001502&i=1&sc_id=liJZyzC.plshldr";

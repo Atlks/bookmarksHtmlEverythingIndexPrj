@@ -66,6 +66,11 @@
 	<classpathentry kind="lib" path="miniPrjjars/javax.ws.rs-api-2.1-sources.jar"/>
 	<classpathentry kind="lib" path="miniPrjjars/javax.ws.rs-api-2.1.jar"/>
 	<classpathentry kind="lib" path="libs/mysql-connector-java-8.0.11-sources.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/org.apache.tools.zip_1.9.6.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/Filters.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/log4j-1.2.9.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/Thumbnailator-0.3.10.jar"/>
+	<classpathentry kind="lib" path="miniPrjjars/javax.servlet-api-3.1.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
