@@ -12,17 +12,19 @@ import org.jsoup.select.NodeVisitor;
 
 import com.attilax.io.FileUtilsAti;
 
+ 
+
 public class htmlJsoupUtil {
 
 	public static void main(String[] args) {
 
-		String f = "C:\\Users\\attilax\\Documents\\nethtmlcoll\\���������ԭ��(��10��)��(���������˹��...)�����_����_�����Ķ��� - ����ͼ��.html";
-		// f="C:\\Users\\attilax\\Documents\\ati doc index ext v3\\fav like txt
-		// coll\\note ever\\005 note\\Untitled Note [60].html";
-		String html = FileUtilsAti.readFileToStringAutoDetectEncode(f);
-		html2txtV2(html);
-		// System.out.println(text);
-		System.out.println("66--");
+//		String f = "C:\\Users\\attilax\\Documents\\nethtmlcoll\\���������ԭ��(��10��)��(���������˹��...)�����_����_�����Ķ��� - ����ͼ��.html";
+//		// f="C:\\Users\\attilax\\Documents\\ati doc index ext v3\\fav like txt
+//		// coll\\note ever\\005 note\\Untitled Note [60].html";
+//		String html = FileUtilsAti.readFileToStringAutoDetectEncode(f);
+//		html2txtV2(html);
+//		// System.out.println(text);
+//		System.out.println("66--");
 
 	}
 
@@ -33,7 +35,7 @@ public class htmlJsoupUtil {
 		return text;
 	}
 
-	static String html2txt(String t) {
+	public static String html2txt(String t) {
 		// org.apache.commons.io.FileUtils.readFileToString(file, encoding)
 
 		Document Document1 = Jsoup.parse(t);
