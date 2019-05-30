@@ -31,17 +31,57 @@ import data.html.html2txtConverter;
 public class SearchSongYear {
 
 	public static void main(String[] args) throws Exception {
-
+		File file = new File("D:\\searchByekae_rzt.txt");
+		FileUtils.write(file,"[\r\n",true);
+		boolean contstat=false;
+		
+		
+		String f="d:\\ati can song.txt";
+		List<String> li=FileUtils.readLines(new File(f),"gbk");
+		for (String line : li) {
+			line=line.trim();//song name
+			
+			
+			Map m = searchByekae(line);
+			// Map m=search(song);
+			System.out.println(JSON.toJSONString(m, true));
+			if(contstat)
+				FileUtils.write(file,"\r\n,\r\n",true);
+			FileUtils.write(file, JSON.toJSONString(m, true), true);
+			if(!contstat)
+				contstat=true;
+		}
+		
+		
+	 
+		
+		FileUtils.write(file,"\r\n]\r\n",true);
 		// honchen cinge
+	//	test();
+
+	}
+
+	private static void test() throws IOException, Exception {
 		String songs = "红尘情歌,时间煮雨,未成年本兮";
 		// songs = "时间煮雨";
 		String[] sa = songs.split(",");
+		File file = new File("D:\\searchByekae_rzt.txt");
+		FileUtils.write(file,"[\r\n",true);
+		boolean contstat=false;
 		for (String song : sa) {
 			Map m = searchByekae(song);
 			// Map m=search(song);
 			System.out.println(JSON.toJSONString(m, true));
+			if(contstat)
+				FileUtils.write(file,"\r\n,\r\n",true);
+			FileUtils.write(file, JSON.toJSONString(m, true), true);
+			if(!contstat)
+				contstat=true;
+			
+			
 		}
-
+		
+		FileUtils.write(file,"\r\n]\r\n",true);
 	}
 
 	private static Map searchByekae(String song) throws Exception {
