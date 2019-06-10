@@ -98,7 +98,7 @@ public class strService   {
 	public static String getNum(String str) {
 		List<Integer> numbers = new LinkedList<Integer>();
 		Pattern p = Pattern.compile("\\d+");
-		Matcher m = p.matcher(str);
+		Matcher m = Pattern.matcher(str);
 		while (m.find()) {
 			numbers.add(Integer.parseInt(m.group()));
 		}

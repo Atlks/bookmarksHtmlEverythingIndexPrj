@@ -18,7 +18,8 @@ public class songlistCnDeduliCsv {
 		JSONArray  ja=JSONArray.parseArray(FileUtils.readFileToString(file,"gbk"));
 		for (Object object : ja) {
 			JSONObject jo=(JSONObject) object;
-			String string = jo.getString("SongName")+","+jo.getString("Artist")+","+jo.getString("Album");
+		//	String string = jo.getString("SongName")+","+jo.getString("Artist")+","+jo.getString("Album");
+			String string=jo.getString("Album");
 			st.add(string);
 			
 		}

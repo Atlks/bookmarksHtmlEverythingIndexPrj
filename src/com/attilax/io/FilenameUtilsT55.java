@@ -79,5 +79,21 @@ public class FilenameUtilsT55 {
 			return true; // û�ҵ�������
 		return false;
 	}
+	
+	
+	public static String filenameEncode(String basename) {
+		basename = basename.replaceAll("\\?", "？");
+		return basename;
+	}
+
+	public static String getmainFilename(String f) {
+		String[] fa = f.split("\\\\");
+		return fa[fa.length - 1];
+	}
+
+	public static String getZipName(String f) {
+		String[] fa = f.split("\\\\");
+		return fa[0];
+	}
 
 }
