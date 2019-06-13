@@ -1,4 +1,4 @@
-package agenepkg;
+package aaaHttpclient;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,12 +18,12 @@ import org.apache.catalina.startup.Tomcat;
 
 import com.alibaba.fastjson.JSON;
 
-public class add {
+public class tomcatServletDemo {
 	
-	
+	//http://localhost:8088/list.json
 	public static void main(String[] args) throws ServletException, LifecycleException {
 		Tomcat tomcat = new Tomcat();
-		tomcat.setPort(8080);
+		tomcat.setPort(8088);
 		tomcat.setBaseDir(".");
 
 		String contextPath = "/";

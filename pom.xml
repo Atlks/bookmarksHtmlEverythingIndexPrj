@@ -26,6 +26,13 @@
 		<jwt.version>0.9.0</jwt.version>
 	</properties>
 	<dependencies>
+	
+	
+	   <dependency>
+            <groupId>org.java-websocket</groupId>
+            <artifactId>Java-WebSocket</artifactId>
+            <version>1.3.0</version>
+        </dependency>
 
 
 <dependency>

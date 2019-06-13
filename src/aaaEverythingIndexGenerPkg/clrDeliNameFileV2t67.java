@@ -139,12 +139,12 @@ public class clrDeliNameFileV2t67 {
 		if (baseFile.toString().contains("是印度最古老的一部法律文献"))
 			System.out.println("dbg");
 
-		String dir = baseFile.getParent();
+		String dir_baseFile_getParent = baseFile.getParent();
 		String basenameBase = FilenameUtils.getBaseName(baseFile.getAbsolutePath());
 		String ext = FilenameUtils.getExtension(baseFile.getAbsolutePath());
-		String rltPath = FilenameUtilsT55.rltPath(dir, baseDir);
+		String rltPath = FilenameUtilsT55.rltPath(dir_baseFile_getParent, baseDir);
 		for (int i = start; i < end; i++) {
-			String f = dir + "\\" + basenameBase + "(" + i + ")." + ext;
+			String f = dir_baseFile_getParent + "\\" + basenameBase + "(" + i + ")." + ext;
 
 			String destFpath = destDir + "\\" + rltPath + "\\" + basenameBase + "(" + i + ")." + ext;
 			if (new File(f).exists()) {
