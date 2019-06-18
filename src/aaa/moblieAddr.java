@@ -13,12 +13,12 @@ public class moblieAddr {
 
 	public static void main(String[] args) {
 		Map m=Maps.newLinkedHashMap();
-		m.put("姓名", "ati");m.put("mob", "159");
+		m.put("name", "ati");m.put("mob", "159");
 		
 		List li=Lists.newArrayList();
 		li.add(m);
 		li.add(new HashMap (){{
-			put("姓名", "ati2");	put("mob", "200000");
+			//put("姓名", "ati2");	put("mob", "200000");
 		}});
 		System.out.println(li);
 
